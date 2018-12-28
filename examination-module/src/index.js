@@ -8,10 +8,7 @@ class Examine extends React.Component {
         return (
             <div className="wrapper">
                 <ExamineTitle />
-                <div className="question">
-                    {this.renderQuestions(0)}
-                    <Question />
-                </div>
+                <Questions />
             </div>
         );
     }
@@ -28,28 +25,42 @@ function ExamineTitle() {
     );
 }
 
-class Question extends React.Component {
+class Questions extends React.Component {
     constructor(props) {
         super(props);
         this.questions = [1, 2, 3, 4, 5];
     }
 
     renderQuestions(i) {
-        return <Question-wrap
-            value={ this.questions[i] }
-        />;
+        return (
+            <div className="question">
+                <QuestionTitle />
+                <div className="q-body" value={ this.questions[i] }>
+
+                </div>;
+            </div>
+            )
     }
 
 
     render() {
         return (
-            <QuestionTitle />
-        );
+            <div className="questions">
+                <div className="question-1">
+                    {this.renderQuestions(0)}
+                </div>
+                <div className="question-2">
+                    {this.renderQuestions(1)}
+                </div>
+            </div>
+        )
     }
 }
 
 function QuestionTitle() {
-
+    return (
+        <h1>Это вопрос!</h1>
+    )
 }
 
 ReactDOM.render(<Examine />, document.getElementById('root'));
