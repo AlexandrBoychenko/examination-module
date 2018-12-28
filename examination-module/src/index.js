@@ -1,12 +1,55 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+class Examine extends React.Component {
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+    render() {
+        return (
+            <div className="wrapper">
+                <ExamineTitle />
+                <div className="question">
+                    {this.renderQuestions(0)}
+                    <Question />
+                </div>
+            </div>
+        );
+    }
+}
+
+function ExamineTitle() {
+    const title = 'Экзаменационный модуль';
+    const theme = 'Тема: Астрономия';
+    return (
+        <div className="titles">
+            <h1>{title}</h1>
+            <h2>{theme}</h2>
+        </div>
+    );
+}
+
+class Question extends React.Component {
+    constructor(props) {
+        super(props);
+        this.questions = [1, 2, 3, 4, 5];
+    }
+
+    renderQuestions(i) {
+        return <Question-wrap
+            value={ this.questions[i] }
+        />;
+    }
+
+
+    render() {
+        return (
+            <QuestionTitle />
+        );
+    }
+}
+
+function QuestionTitle() {
+
+}
+
+ReactDOM.render(<Examine />, document.getElementById('root'));
