@@ -52,6 +52,7 @@ class Questions extends React.Component {
             answer04: '',
             answer05: ''
         }
+        this.submit = this.submit.bind(this);
     }
 
     onAnswerChangeRadio(value, name) {
@@ -64,21 +65,32 @@ class Questions extends React.Component {
     }
 
     onAnswerChangeCheckbox(value) {
-        if (!~this.state.answer2.indexOf(value)) {
-            let newAnswers = this.state.answer2.slice();
+        if (!~this.state.answer02.indexOf(value)) {
+            let newAnswers = this.state.answer02.slice();
             newAnswers.push(value);
-            this.setState({answer2: newAnswers});
+            this.setState({answer02: newAnswers});
         } else {
-            this.setState({answer2: this.state.answer2.delete(value)});
+            this.setState({answer02: this.state.answer02.delete(value)});
         }
     }
 
     onAnswerChangeText(value) {
-        this.setState({answer3: value});
+        this.setState({answer03: value});
     }
 
     onAnswerChangeSelect(value) {
-        this.setState({answer4: value});
+        this.setState({answer04: value});
+    }
+
+    submit(e) {
+        e.preventDefault();
+        let stateHaveEmptyAnswers = false;
+        for (let key in this.state) {
+            if (!this.state[key] && key !== "allAreAnswered") {
+                stateHaveEmptyAnswers = true;
+            }
+        }
+        stateHaveEmptyAnswers ? alert("Не все ответы есть!") : alert("Все ответы есть!");
     }
 
     render() {
@@ -182,7 +194,7 @@ class Questions extends React.Component {
                         />
                     </div>
                 </div>
-                <button type="submit" className="btn exam-submit">Ответить</button>
+                <button className="btn exam-submit" onClick={this.submit}>Ответить</button>
             </div>
         )
     }
