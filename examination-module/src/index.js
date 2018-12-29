@@ -46,16 +46,21 @@ class Questions extends React.Component {
         super(props);
         this.state = {
             allAreAnswered: false,
-            answer1: '',
-            answer2: [],
-            answer3: '',
-            answer4: '',
-            answer5: ''
+            answer01: '',
+            answer02: [],
+            answer03: '',
+            answer04: '',
+            answer05: ''
         }
     }
 
-    onAnswerChangeRadio(value) {
-        this.setState({answer1: value});
+    onAnswerChangeRadio(value, name) {
+        if (name === "answer01") {
+            this.setState({answer01: value});
+        } else {
+            this.setState({answer05: value});
+        }
+
     }
 
     onAnswerChangeCheckbox(value) {
@@ -88,6 +93,7 @@ class Questions extends React.Component {
                     />
                     <div className="question-body">
                         <AnswersInput
+                                id="answer01"
                                 items={[7, 5, 9, 8]}
                                 right={9}
                                 type="radio"
@@ -104,6 +110,7 @@ class Questions extends React.Component {
                     />
                     <div className="question-body">
                         <AnswersInput
+                                id="answer02"
                                 items={[
                                     "Имеет хвост",
                                     "Вращается вокруг солнца",
@@ -129,6 +136,7 @@ class Questions extends React.Component {
                     />
                     <div className="question-body">
                         <AnswersTexInput
+                            id="answer03"
                             value={this.state.answer}
                             context={this}
                             onChange={this.handleUserInput}
@@ -144,15 +152,16 @@ class Questions extends React.Component {
                     />
                     <div className="question-body">
                         <AnswersSelect
-                                items={[
-                                    "Ганимед",
-                                    "Луна",
-                                    "Фобос",
-                                    "Титан",
-                                    "Европа"
-                                ]}
-                                right="Луна"
-                                context={this}
+                            id="question04"
+                            items={[
+                                "Ганимед",
+                                "Луна",
+                                "Фобос",
+                                "Титан",
+                                "Европа"
+                            ]}
+                            right="Луна"
+                            context={this}
                         />
                     </div>
                 </div>
@@ -166,8 +175,10 @@ class Questions extends React.Component {
                     />
                     <div className="question-body">
                         <AnswersInput
-                                items={["Да", "Нет"]}
-                                type="radio"
+                            id="answer05"
+                            items={["Да", "Нет"]}
+                            type="radio"
+                            context={this}
                         />
                     </div>
                 </div>
@@ -180,9 +191,11 @@ class Questions extends React.Component {
 class AnswersSelect extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            answer: false
-        }
+        this.handleChangeSelect = this.handleChangeSelect.bind(this);
+    }
+
+    handleChangeSelect(e) {
+        this.props.context.onAnswerChangeSelect(e.target.value)
     }
 
     renderItems() {
@@ -207,10 +220,13 @@ class AnswersInput extends React.Component {
         super(props);
         this.handleChangeRadio = this.handleChangeRadio.bind(this);
         this.handleChangeCheckbox = this.handleChangeCheckbox.bind(this);
+        this.state = {
+            componentId: 0
+        }
     }
 
     handleChangeRadio(e) {
-        this.props.context.onAnswerChangeRadio(e.target.value);
+        this.props.context.onAnswerChangeRadio(e.target.value, e.target.name);
     }
 
     handleChangeCheckbox(e) {
@@ -228,9 +244,12 @@ class AnswersInput extends React.Component {
             case 'radio':
                 this.className = 'radio-list';
                 return (
-                    <li key={item}>
+                    <li key={item} >
                         <label className="container">{item}
-                            <input type="radio" name="answer" value={item}
+                            <input
+                                type="radio"
+                                name={this.props.id}
+                                value={item}
                                 onChange={this.handleChangeRadio}
                             />
                             <span className="checkmark"></span>
@@ -264,20 +283,23 @@ class AnswersInput extends React.Component {
 class AnswersTexInput extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            answer: false
-        }
+        this.handleChangeText = this.handleChangeText.bind(this);
     }
 
-    handleUserInput = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
-        this.setState({answer: value});
+    handleChangeText(e) {
+        this.props.context.onAnswerChangeText(e.target.value)
     };
 
     render() {
         return(
-            <textarea name="answer" id="" cols="30" rows="10" placeholder="Введите ваш ответ здесь"></textarea>
+            <textarea
+                name="answer"
+                id=""
+                cols="30"
+                rows="10"
+                placeholder="Введите ваш ответ здесь"
+                onChange={this.handleChangeText}>
+            </textarea>
         )
     }
 }
