@@ -1,0 +1,40 @@
+/*Reset*/
+html, body, div, section, article, p, blockquote, ul, li, span{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Calibri', sans-serif;
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+img {
+    border: 0;
+}
+
+button {
+    cursor: pointer;
+    outline: none;
+}
+
+h1, h2, h3, h4, h5, p {
+    color: #000000;
+    margin: 0;
+}
+
+h1 {
+    font-weight: 700;
+    line-height: 1.08;
+}
+
+h2 {
+    font-weight: 700;
+    line-height: 1.08;
+}
+
+ul {
+    list-style-type: none;
+}
