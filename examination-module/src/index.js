@@ -4,6 +4,7 @@ import './style/index.css';
 import './style/default.css';
 import './style/radio.css';
 import './style/checkboxes.css';
+import './style/select.css';
 
 class Examine extends React.Component {
 
@@ -32,7 +33,7 @@ class Examine extends React.Component {
 }
 
 function Submit() {
-    return <button className="btn exam-submit">Ответить</button>
+    return <button type="submit" className="btn exam-submit">Ответить</button>
 }
 
 class ExamineTitle extends React.Component {
@@ -50,6 +51,9 @@ class ExamineTitle extends React.Component {
 class Questions extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            allAreAnswered: false
+        }
     }
 
     render() {
@@ -66,6 +70,7 @@ class Questions extends React.Component {
                         <AnswersInput
                             value={{
                                 items: [7, 5, 9, 8],
+                                right: 9,
                                 type: "radio"
                             }}
                         />
@@ -88,6 +93,10 @@ class Questions extends React.Component {
                                     "Существует только во внутренней области солнечной системы",
                                     "Не имеет ядра"
                                 ],
+                                right: [
+                                    "Имеет хвост",
+                                    "Вращается вокруг солнца",
+                                ],
                                 type: "checkbox"
                             }}
                         />
@@ -104,21 +113,93 @@ class Questions extends React.Component {
                         <AnswersTexInput />
                     </div>
                 </div>
+                <div className="question">
+                    <QuestionTitle
+                        value={4}
+                    />
+                    <QuestionText
+                        value={'Как называется естественный спутник Земли?'}
+                    />
+                    <div className="question-body">
+                        <AnswersSelect
+                            value={{
+                                items: [
+                                    "Ганимед",
+                                    "Луна",
+                                    "Фобос",
+                                    "Титан",
+                                    "Европа"
+                                ],
+                                right: [
+                                    "Луна"
+                                ]
+                            }}
+                        />
+                    </div>
+                </div>
+                <div className="question">
+                    <QuestionTitle
+                        value={5}
+                    />
+                    <QuestionText
+                        value={'Достигнул ли к настоящему моменту космический аппарат Voyager-2, сконструированный "NASA"' +
+                        ' пределов солнечной системы?'}
+                    />
+                    <div className="question-body">
+                        <AnswersInput
+                            value={{
+                                items: ["Да", "Нет"],
+                                type: "radio"
+                            }}
+                        />
+                    </div>
+                </div>
+            </div>
+        )
+    }
+}
+
+class AnswersSelect extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            answer: false
+        }
+    }
+
+    renderItems() {
+        return this.props.value.items.map((item) => {
+            return <option key={item} value={item}>{item}</option>
+        });
+    }
+
+    render() {
+        return(
+            <div className="select-style">
+                <select>
+                    {this.renderItems()}
+                </select>
             </div>
         )
     }
 }
 
 class AnswersInput extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            answer: false
+        }
+    }
+
     renderItems() {
-        const listItems = this.props.value.items.map((item) => {
+        return this.props.value.items.map((item) => {
             return this.renderByType(item)
         });
-        return listItems;
     }
 
     renderByType(item) {
-        switch(this.props.type) {
+        switch(this.props.value.type) {
             case 'radio':
                 this.className = 'radio-list';
                 return (
@@ -128,7 +209,7 @@ class AnswersInput extends React.Component {
                             <span className="checkmark"></span>
                         </label>
                     </li>
-                )
+                );
             case 'checkbox':
                 this.className = 'checkbox-list';
                 return (
@@ -152,11 +233,18 @@ class AnswersInput extends React.Component {
 }
 
 class AnswersTexInput extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            answer: false
+        }
+    }
+
     render() {
         return(
             <textarea name="answer" id="" cols="30" rows="10" placeholder="Введите ваш ответ здесь"></textarea>
         )
-    } 
+    }
 }
 
 class QuestionText extends React.Component {
@@ -170,7 +258,7 @@ class QuestionText extends React.Component {
 class QuestionTitle extends React.Component {
     render() {
         return (
-            <h3 class="question-title">Вопрос {this.props.value}</h3>
+            <h3 className="question-title">Вопрос {this.props.value}</h3>
         )
     }
 }
