@@ -23,18 +23,10 @@ class Examine extends React.Component {
                         }}
                     />
                     <Questions />
-
-                    <Submit
-                        onClick={(i) => this.handleSubmit(i)}
-                    />
                 </form>
             </div>
         );
     }
-}
-
-function Submit() {
-    return <button type="submit" className="btn exam-submit">Ответить</button>
 }
 
 class ExamineTitle extends React.Component {
@@ -53,11 +45,35 @@ class Questions extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            allAreAnswered: false
+            allAreAnswered: false,
+            answer1: '',
+            answer2: [],
+            answer3: '',
+            answer4: '',
+            answer5: ''
         }
     }
 
-    stateHandler() {
+    onAnswerChangeRadio(value) {
+        this.setState({answer1: value});
+    }
+
+    onAnswerChangeCheckbox(value) {
+        if (!~this.state.answer2.indexOf(value)) {
+            let newAnswers = this.state.answer2.slice();
+            newAnswers.push(value);
+            this.setState({answer2: newAnswers});
+        } else {
+            this.setState({answer2: this.state.answer2.delete(value)});
+        }
+    }
+
+    onAnswerChangeText(value) {
+        this.setState({answer3: value});
+    }
+
+    onAnswerChangeSelect(value) {
+        this.setState({answer4: value});
     }
 
     render() {
@@ -72,12 +88,10 @@ class Questions extends React.Component {
                     />
                     <div className="question-body">
                         <AnswersInput
-                            value={{
-                                items: [7, 5, 9, 8],
-                                right: 9,
-                                type: "radio"
-                            }}
-                            onChange={this.handleUserInput}
+                                items={[7, 5, 9, 8]}
+                                right={9}
+                                type="radio"
+                                context={this}
                         />
                     </div>
                 </div>
@@ -90,20 +104,19 @@ class Questions extends React.Component {
                     />
                     <div className="question-body">
                         <AnswersInput
-                            value={{
-                                items: [
+                                items={[
                                     "Имеет хвост",
                                     "Вращается вокруг солнца",
                                     "Состоит из газа и пыли",
                                     "Существует только во внутренней области солнечной системы",
                                     "Не имеет ядра"
-                                ],
-                                right: [
+                                ]}
+                                right={[
                                     "Имеет хвост",
                                     "Вращается вокруг солнца",
-                                ],
-                                type: "checkbox"
-                            }}
+                                ]}
+                                type="checkbox"
+                                context={this}
                         />
                     </div>
                 </div>
@@ -117,6 +130,7 @@ class Questions extends React.Component {
                     <div className="question-body">
                         <AnswersTexInput
                             value={this.state.answer}
+                            context={this}
                             onChange={this.handleUserInput}
                         />
                     </div>
@@ -130,18 +144,15 @@ class Questions extends React.Component {
                     />
                     <div className="question-body">
                         <AnswersSelect
-                            value={{
-                                items: [
+                                items={[
                                     "Ганимед",
                                     "Луна",
                                     "Фобос",
                                     "Титан",
                                     "Европа"
-                                ],
-                                right: [
-                                    "Луна"
-                                ]
-                            }}
+                                ]}
+                                right="Луна"
+                                context={this}
                         />
                     </div>
                 </div>
@@ -155,13 +166,12 @@ class Questions extends React.Component {
                     />
                     <div className="question-body">
                         <AnswersInput
-                            value={{
-                                items: ["Да", "Нет"],
-                                type: "radio"
-                            }}
+                                items={["Да", "Нет"]}
+                                type="radio"
                         />
                     </div>
                 </div>
+                <button type="submit" className="btn exam-submit">Ответить</button>
             </div>
         )
     }
@@ -176,7 +186,7 @@ class AnswersSelect extends React.Component {
     }
 
     renderItems() {
-        return this.props.value.items.map((item) => {
+        return this.props.items.map((item) => {
             return <option key={item} value={item}>{item}</option>
         });
     }
@@ -195,32 +205,34 @@ class AnswersSelect extends React.Component {
 class AnswersInput extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            answer: false
-        }
+        this.handleChangeRadio = this.handleChangeRadio.bind(this);
+        this.handleChangeCheckbox = this.handleChangeCheckbox.bind(this);
     }
 
-    handleUserInput(event) {
-        this.setState({answer: true});
-        if(event.target.name === this.props.value.right) {
-            this.setState({answer: event.target.name})
-        }
+    handleChangeRadio(e) {
+        this.props.context.onAnswerChangeRadio(e.target.value);
+    }
+
+    handleChangeCheckbox(e) {
+        this.props.context.onAnswerChangeCheckbox(e.target.value);
     }
 
     renderItems() {
-        return this.props.value.items.map((item) => {
+        return this.props.items.map((item) => {
             return this.renderByType(item)
         });
     }
 
     renderByType(item) {
-        switch(this.props.value.type) {
+        switch(this.props.type) {
             case 'radio':
                 this.className = 'radio-list';
                 return (
                     <li key={item}>
                         <label className="container">{item}
-                            <input type="radio" name="answer" value={item}/>
+                            <input type="radio" name="answer" value={item}
+                                onChange={this.handleChangeRadio}
+                            />
                             <span className="checkmark"></span>
                         </label>
                     </li>
@@ -230,7 +242,9 @@ class AnswersInput extends React.Component {
                 return (
                     <li key={item}>
                         <label className="container container-checkbox">{item}
-                            <input type="checkbox" />
+                            <input type="checkbox" name="answer" value={item}
+                                onChange={this.handleChangeCheckbox}
+                            />
                             <span className="checkmark-checkbox"></span>
                         </label>
                     </li>

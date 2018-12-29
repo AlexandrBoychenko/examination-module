@@ -24,7 +24,7 @@ code {
   padding: 2%;
 }
 
-.question:last-child {
+.question:nth-child(5) {
   border-bottom: 1px solid #2196F3;
 }
 
