@@ -23,6 +23,7 @@ class Examine extends React.Component {
                         }}
                     />
                     <Questions />
+
                     <Submit
                         onClick={(i) => this.handleSubmit(i)}
                     />
@@ -56,6 +57,9 @@ class Questions extends React.Component {
         }
     }
 
+    stateHandler() {
+    }
+
     render() {
         return (
             <div className="questions">
@@ -73,6 +77,7 @@ class Questions extends React.Component {
                                 right: 9,
                                 type: "radio"
                             }}
+                            onChange={this.handleUserInput}
                         />
                     </div>
                 </div>
@@ -110,7 +115,10 @@ class Questions extends React.Component {
                         value={'Что такое звезда?'}
                     />
                     <div className="question-body">
-                        <AnswersTexInput />
+                        <AnswersTexInput
+                            value={this.state.answer}
+                            onChange={this.handleUserInput}
+                        />
                     </div>
                 </div>
                 <div className="question">
@@ -192,6 +200,13 @@ class AnswersInput extends React.Component {
         }
     }
 
+    handleUserInput(event) {
+        this.setState({answer: true});
+        if(event.target.name === this.props.value.right) {
+            this.setState({answer: event.target.name})
+        }
+    }
+
     renderItems() {
         return this.props.value.items.map((item) => {
             return this.renderByType(item)
@@ -240,6 +255,12 @@ class AnswersTexInput extends React.Component {
         }
     }
 
+    handleUserInput = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
+        this.setState({answer: value});
+    };
+
     render() {
         return(
             <textarea name="answer" id="" cols="30" rows="10" placeholder="Введите ваш ответ здесь"></textarea>
@@ -262,5 +283,6 @@ class QuestionTitle extends React.Component {
         )
     }
 }
+
 
 ReactDOM.render(<Examine />, document.getElementById('root'));
