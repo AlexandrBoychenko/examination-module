@@ -15,11 +15,17 @@ code {
 
 .titles {
   text-align: center;
+  padding: 2%
 }
 
 .question {
   border: 1px solid #2196F3;
-  padding: 5%;
+  border-bottom: none;
+  padding: 2%;
+}
+
+.question:last-child {
+  border-bottom: 1px solid #2196F3;
 }
 
 /*buttons*/
@@ -34,11 +40,39 @@ code {
 .exam-submit {
   background-color: #2196F3;
   display: table;
-  margin: 5% auto;
+  margin: 2% auto;
 }
 
 .exam-submit:hover {background: #0b7dda;}
 
 .question-body {
-  padding-top: 5%;
+  padding-top: 2%;
+}
+
+.container, .container-checkbox {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+textarea {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  resize: none
+}
+
+.question-title {
+  padding-bottom: 0.5rem;
 }
