@@ -18,5 +18,27 @@ code {
 }
 
 .question {
-  border: 1px solid green;
+  border: 1px solid #2196F3;
+  padding: 5%;
+}
+
+/*buttons*/
+
+.btn {
+  border: none; /* Remove borders */
+  color: white; /* Add a text color */
+  padding: 14px 28px; /* Add some padding */
+  cursor: pointer; /* Add a pointer cursor on mouse-over */
+}
+
+.exam-submit {
+  background-color: #2196F3;
+  display: table;
+  margin: 5% auto;
+}
+
+.exam-submit:hover {background: #0b7dda;}
+
+.question-body {
+  padding-top: 5%;
 }

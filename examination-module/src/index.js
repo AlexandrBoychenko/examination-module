@@ -31,7 +31,7 @@ class Examine extends React.Component {
 }
 
 function Submit() {
-    return <button className="exam-submit">Ответить</button>
+    return <button className="btn exam-submit">Ответить</button>
 }
 
 class ExamineTitle extends React.Component {
@@ -61,9 +61,11 @@ class Questions extends React.Component {
                     <QuestionText
                         value={'Сколько планет в солнечной системе?'}
                     />
-                    <AnswersRadio
-                        value={[7, 5, 9, 8]}
-                    />
+                    <div className="question-body">
+                        <AnswersRadio
+                            value={[7, 5, 9, 8]}
+                        />
+                    </div>
                 </div>
                 <div className="question">
                     <QuestionTitle
@@ -85,7 +87,7 @@ class AnswersRadio extends React.Component {
             return (
                 <li key={item}>
                     <label className="container">{item}
-                        <input type="radio" name={item} />
+                        <input type="radio" name="answer" value={item}/>
                         <span className="checkmark"></span>
                     </label>
                 </li>
