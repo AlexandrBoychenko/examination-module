@@ -8,14 +8,25 @@ import './style/checkboxes.css';
 import './style/select.css';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 
-const Main = () => (
-    <main>
-        <Switch>
-            <Route exact path='/' component={Examine}/>
-            <Route path='/result' component={Result}/>
-        </Switch>
-    </main>
-);
+class Main extends React.Component {
+    render() {
+        return(
+            <Switch>
+                <Route exact path='/' component={Examine}/>
+                <Route path='/result' component={Result}/>
+            </Switch>
+            )
+
+    }
+}
+
+class App extends React.Component {
+    render() {
+        return (
+            <Main />
+        )
+    }
+}
 
 class Examine extends React.Component {
 
@@ -237,6 +248,7 @@ class Questions extends React.Component {
                        onClose={this.toggleModal}
                        onSubmit={this.openNewPage}>
                 </Modal>
+                <Link to='/result'>Home</Link>
             </div>
         )
     }
@@ -377,6 +389,6 @@ class QuestionTitle extends React.Component {
 
 ReactDOM.render((
     <BrowserRouter>
-        <Examine />
+        <App />
     </BrowserRouter>
     ), document.getElementById('root'));
