@@ -35,15 +35,24 @@ code {
   color: white; /* Add a text color */
   padding: 14px 28px; /* Add some padding */
   cursor: pointer; /* Add a pointer cursor on mouse-over */
-}
-
-.exam-submit {
   background-color: #2196F3;
   display: table;
   margin: 2% auto;
 }
 
-.exam-submit:hover {background: #0b7dda;}
+.btn:hover {background: #0b7dda;}
+
+.btn-inline {
+  margin-right: 9%;
+  display: inline-block;
+  width: 20%;
+}
+
+.btn-inline:last-child {margin-right: 0;}
+
+.btn-footer {
+  text-align: center;
+}
 
 .question-body {
   padding-top: 2%;

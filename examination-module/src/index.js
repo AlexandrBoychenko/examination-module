@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Modal from './modal';
 import './style/index.css';
 import './style/default.css';
 import './style/radio.css';
@@ -7,10 +8,6 @@ import './style/checkboxes.css';
 import './style/select.css';
 
 class Examine extends React.Component {
-
-    handleSubmit(i) {
-
-    }
 
     render() {
         return (
@@ -46,13 +43,15 @@ class Questions extends React.Component {
         super(props);
         this.state = {
             allAreAnswered: false,
+            isOpen: false,
             answer01: '',
             answer02: [],
             answer03: '',
-            answer04: '',
+            answer04: true,
             answer05: ''
-        }
+        };
         this.submit = this.submit.bind(this);
+        this.toggleModal = this.toggleModal.bind(this);
     }
 
     onAnswerChangeRadio(value, name) {
@@ -65,12 +64,15 @@ class Questions extends React.Component {
     }
 
     onAnswerChangeCheckbox(value) {
+        let newAnswers = this.state.answer02.slice();
+
         if (!~this.state.answer02.indexOf(value)) {
-            let newAnswers = this.state.answer02.slice();
             newAnswers.push(value);
             this.setState({answer02: newAnswers});
         } else {
-            this.setState({answer02: this.state.answer02.delete(value)});
+            let valueIndex = newAnswers.indexOf(value);
+            newAnswers.splice(valueIndex, 1);
+            this.setState({answer02: newAnswers});
         }
     }
 
@@ -84,13 +86,25 @@ class Questions extends React.Component {
 
     submit(e) {
         e.preventDefault();
-        let stateHaveEmptyAnswers = false;
+
+        let allAreAnswered = true;
         for (let key in this.state) {
-            if (!this.state[key] && key !== "allAreAnswered") {
-                stateHaveEmptyAnswers = true;
+            if (!this.state[key] && key !== "allAreAnswered" && key !== "isOpen") {
+                allAreAnswered = false;
             }
         }
-        stateHaveEmptyAnswers ? alert("Не все ответы есть!") : alert("Все ответы есть!");
+        allAreAnswered ? this.openNewPage() : this.toggleModal();
+    }
+
+    toggleModal() {
+        this.setState({
+            isOpen: !this.state.isOpen
+        });
+    };
+
+    openNewPage(e) {
+        //Todo route to the another page
+        alert('New page will be here');
     }
 
     render() {
@@ -194,7 +208,15 @@ class Questions extends React.Component {
                         />
                     </div>
                 </div>
-                <button className="btn exam-submit" onClick={this.submit}>Ответить</button>
+                <button
+                    className="btn"
+                    onClick={this.submit}>
+                    Ответить
+                </button>
+                <Modal show={this.state.isOpen}
+                       onClose={this.toggleModal}
+                       onSubmit={this.openNewPage}>
+                </Modal>
             </div>
         )
     }
@@ -219,7 +241,7 @@ class AnswersSelect extends React.Component {
     render() {
         return(
             <div className="select-style">
-                <select>
+                <select onChange={this.handleChangeSelect}>
                     {this.renderItems()}
                 </select>
             </div>
