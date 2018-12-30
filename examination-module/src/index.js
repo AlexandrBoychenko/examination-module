@@ -8,25 +8,13 @@ import './style/checkboxes.css';
 import './style/select.css';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 
-class Main extends React.Component {
-    render() {
-        return(
-            <Switch>
-                <Route exact path='/' component={Examine}/>
-                <Route path='/result' component={Result}/>
-            </Switch>
-            )
 
-    }
-}
-
-class App extends React.Component {
-    render() {
-        return (
-            <Main />
-        )
-    }
-}
+const App = () => (
+    <Switch>
+        <Route exact path='/' component={Examine}/>
+        <Route path='/result' component={Result}/>
+    </Switch>
+);
 
 class Examine extends React.Component {
 
@@ -79,7 +67,6 @@ class Questions extends React.Component {
             answer04: true,
             answer05: ''
         };
-        this.submit = this.submit.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
     }
 
@@ -113,18 +100,6 @@ class Questions extends React.Component {
         this.setState({answer04: value});
     }
 
-    submit(e) {
-        e.preventDefault();
-
-        let allAreAnswered = true;
-        for (let key in this.state) {
-            if (!this.state[key] && key !== "allAreAnswered" && key !== "isOpen") {
-                allAreAnswered = false;
-            }
-        }
-        allAreAnswered ? this.openNewPage() : this.toggleModal();
-    }
-
     toggleModal() {
         this.setState({
             isOpen: !this.state.isOpen
@@ -132,8 +107,9 @@ class Questions extends React.Component {
     };
 
     openNewPage(e) {
-        //Todo route to the another page
-        alert('New page will be here');
+        e.preventDefault();
+
+        //alert('New page will be here');
     }
 
     render() {
@@ -237,18 +213,29 @@ class Questions extends React.Component {
                         />
                     </div>
                 </div>
-                <Link to='/result'>
+                <Route render={({history}) => (
                     <button
                         className="btn"
-                        onClick={this.submit}>
+                        onClick={(e) => {
+                                e.preventDefault();
+
+                                let allAreAnswered = true;
+                                for (let key in this.state) {
+                                    if (!this.state[key] && key !== "allAreAnswered" && key !== "isOpen") {
+                                        allAreAnswered = false;
+                                    }
+                                }
+                                allAreAnswered ? history.push('/result') : this.toggleModal();
+                        }}>
                         Ответить
                     </button>
-                </Link>
-                <Modal show={this.state.isOpen}
-                       onClose={this.toggleModal}
-                       onSubmit={this.openNewPage}>
-                </Modal>
-                <Link to='/result'>Home</Link>
+                )} />
+                <Route render={({history}) => (
+                    <Modal show={this.state.isOpen}
+                           onClose={this.toggleModal}
+                           onSubmit={() => {history.push('/result')}}>
+                    </Modal>
+                )} />
             </div>
         )
     }
