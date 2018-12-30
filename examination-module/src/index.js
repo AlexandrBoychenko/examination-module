@@ -6,6 +6,16 @@ import './style/default.css';
 import './style/radio.css';
 import './style/checkboxes.css';
 import './style/select.css';
+import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
+
+const Main = () => (
+    <main>
+        <Switch>
+            <Route exact path='/' component={Examine}/>
+            <Route path='/result' component={Result}/>
+        </Switch>
+    </main>
+);
 
 class Examine extends React.Component {
 
@@ -23,6 +33,14 @@ class Examine extends React.Component {
                 </form>
             </div>
         );
+    }
+}
+
+class Result extends React.Component {
+    render() {
+        return (
+            <h3>Here's result</h3>
+        )
     }
 }
 
@@ -208,11 +226,13 @@ class Questions extends React.Component {
                         />
                     </div>
                 </div>
-                <button
-                    className="btn"
-                    onClick={this.submit}>
-                    Ответить
-                </button>
+                <Link to='/result'>
+                    <button
+                        className="btn"
+                        onClick={this.submit}>
+                        Ответить
+                    </button>
+                </Link>
                 <Modal show={this.state.isOpen}
                        onClose={this.toggleModal}
                        onSubmit={this.openNewPage}>
@@ -355,4 +375,8 @@ class QuestionTitle extends React.Component {
 }
 
 
-ReactDOM.render(<Examine />, document.getElementById('root'));
+ReactDOM.render((
+    <BrowserRouter>
+        <Examine />
+    </BrowserRouter>
+    ), document.getElementById('root'));
