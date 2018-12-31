@@ -53,7 +53,7 @@ class Result extends React.Component{
             question02: this.compareWithRightAnswer(resultState['answer02'], JSON.parse(localStorage.getItem('answer02'))),
             question03: resultState['answer03'] === localStorage.getItem('answer03'),
             question04: resultState['answer04'] === localStorage.getItem('answer04'),
-            question05: resultState['answer05'] === localStorage.getItem('answer05'),
+            question05: resultState['answer05'] === JSON.parse(localStorage.getItem('answer05'))
         };
 
         for (let key in examSummary) {
@@ -62,8 +62,8 @@ class Result extends React.Component{
                 examCount++
              }
         }
-        this.setState({questionsCount: this.state.questionsCount + 1});
-        this.setState({examCount: this.state.examCount + 1});
+        this.setState({questionsCount: questionsCount});
+        this.setState({examCount: examCount});
     }
 
     compareWithRightAnswer(array01, array02) {
@@ -77,10 +77,12 @@ class Result extends React.Component{
     render() {
         return (
             <div className="result">
-                <h3>Результат экзамена</h3>
-                <div>Количество правильных ответов: {this.state.examCount}</div>
-                <div>Общее количество вопросов: {this.state.questionsCount}</div>
-                <div>Номер результата: {this.props.match.params.number}</div>
+                <div className="result-text">
+                    <h3>Результат экзамена</h3>
+                    <div className="result-item">Количество правильных ответов: {this.state.examCount}</div>
+                    <div className="result-item">Общее количество вопросов: {this.state.questionsCount}</div>
+                    <div className="result-item">Номер результата: {this.props.match.params.number}</div>
+                </div>
                 <Route render={({history}) => (
                     <button
                         className="btn"
@@ -138,10 +140,8 @@ class Questions extends React.Component {
     onAnswerChangeRadio(value, name, right) {
         if (name === "answer01") {
             this.setState({answer01: value});
-            this.setState({right01: right});
         } else {
             this.setState({answer05: value});
-            this.setState({right05: right});
         }
 
     }
@@ -160,11 +160,11 @@ class Questions extends React.Component {
 
     }
 
-    onAnswerChangeText(value, right) {
+    onAnswerChangeText(value) {
         this.setState({answer03: value});
     }
 
-    onAnswerChangeSelect(value, right) {
+    onAnswerChangeSelect(value) {
         this.setState({answer04: value});
     }
 
@@ -181,6 +181,8 @@ class Questions extends React.Component {
     render() {
         let stateId = this.state.id;
         let setStorage = this.setStorage.bind(this);
+        let state = this.state;
+
         return (
             <div className="questions">
                 <div className="question">
@@ -288,8 +290,11 @@ class Questions extends React.Component {
                                 e.preventDefault();
 
                                 let allAreAnswered = true;
-                                for (let key in this.state) {
-                                    if (!this.state[key] && key !== "allAreAnswered" && key !== "isOpen") {
+                                for (let key in state) {
+                                    if (!state[key]
+                                        && key !== "allAreAnswered"
+                                        && key !== "isOpen"
+                                    ) {
                                         allAreAnswered = false;
                                     }
                                 }
@@ -359,8 +364,7 @@ class AnswersInput extends React.Component {
     }
 
     componentDidMount() {
-        let saveType = this.props.right;
-        localStorage.setItem(this.props.id, JSON.stringify(saveType));
+        localStorage.setItem(this.props.id, JSON.stringify(this.props.right));
     }
 
     handleChangeRadio(e) {

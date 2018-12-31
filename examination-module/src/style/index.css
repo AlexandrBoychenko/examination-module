@@ -85,3 +85,16 @@ input[type="text"] {
 .question-title {
   padding-bottom: 0.5rem;
 }
+
+.result-text {
+    padding: 5% 0 3% 42%;
+}
+
+.result-text h3 {
+    font-size: 1.5rem;
+}
+
+.result-item {
+    padding-top: 3%;
+    font-size: 1.2rem;
+}
