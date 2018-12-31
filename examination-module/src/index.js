@@ -12,7 +12,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 const App = () => (
     <Switch>
         <Route exact path='/' component={Examine}/>
-        <Route path='/result' component={Result}/>
+        <Route path='/result/:number' component={Result}/>
     </Switch>
 );
 
@@ -35,13 +35,11 @@ class Examine extends React.Component {
     }
 }
 
-class Result extends React.Component {
-    render() {
+const Result = (props) => {
         return (
-            <h3>Here's result</h3>
+            <h3>{props.match.params.number}</h3>
         )
-    }
-}
+};
 
 class ExamineTitle extends React.Component {
 
@@ -223,7 +221,7 @@ class Questions extends React.Component {
                                         allAreAnswered = false;
                                     }
                                 }
-                                allAreAnswered ? history.push('/result') : this.toggleModal();
+                                allAreAnswered ? history.push(`/result`) : this.toggleModal();
                         }}>
                         Ответить
                     </button>
@@ -231,7 +229,10 @@ class Questions extends React.Component {
                 <Route render={({history}) => (
                     <Modal show={this.state.isOpen}
                            onClose={this.toggleModal}
-                           onSubmit={() => {history.push('/result')}}>
+                           onSubmit={() => {
+                               let id = 5;
+                               history.push(`/result/${id}`);
+                           }}>
                     </Modal>
                 )} />
             </div>
