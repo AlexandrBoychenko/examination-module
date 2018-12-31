@@ -35,12 +35,52 @@ class Examine extends React.Component {
     }
 }
 
-const Result = (props) => {
+class Result extends React.Component{
+    constructor(props) {
+        super(props);
+        this.state = {
+            examCount: 0,
+            questionsCount: 0
+        }
+    }
+    componentDidMount() {
+        let resultState = JSON.parse(localStorage.getItem(this.props.match.params.number));
+        let examCount = 0;
+        let questionsCount = 0;
+
+        let examSummary = {
+            question01: resultState['answer01'] === localStorage.getItem('answer01'),
+            question02: this.compareWithRightAnswer(resultState['answer02'], JSON.parse(localStorage.getItem('answer02'))),
+            question03: resultState['answer03'] === localStorage.getItem('answer03'),
+            question04: resultState['answer04'] === localStorage.getItem('answer04'),
+            question05: resultState['answer05'] === localStorage.getItem('answer05'),
+        };
+
+        for (let key in examSummary) {
+            questionsCount++;
+            if (examSummary[key]) {
+                examCount++
+             }
+        }
+        this.setState({questionsCount: this.state.questionsCount + 1});
+        this.setState({examCount: this.state.examCount + 1});
+    }
+
+    compareWithRightAnswer(array01, array02) {
+        return array01.length === array02.length && array01.every(
+            function(value, index) {
+                return value === array02[index];
+            }
+        )
+    }
+
+    render() {
         return (
             <div className="result">
                 <h3>Результат экзамена</h3>
-                <div>Количество правильных ответов:</div>
-                <div>Общее количество вопросов:</div>
+                <div>Количество правильных ответов: {this.state.examCount}</div>
+                <div>Общее количество вопросов: {this.state.questionsCount}</div>
+                <div>Номер результата: {this.props.match.params.number}</div>
                 <Route render={({history}) => (
                     <button
                         className="btn"
@@ -50,10 +90,10 @@ const Result = (props) => {
                         }}>
                         Пройти экзамен заново
                     </button>
-                )} />
-                <h3>Номер результата: {props.match.params.number}</h3>
+                )}/>
             </div>
         )
+    }
 };
 
 class ExamineTitle extends React.Component {
@@ -95,16 +135,18 @@ class Questions extends React.Component {
         }
     }
 
-    onAnswerChangeRadio(value, name) {
+    onAnswerChangeRadio(value, name, right) {
         if (name === "answer01") {
             this.setState({answer01: value});
+            this.setState({right01: right});
         } else {
             this.setState({answer05: value});
+            this.setState({right05: right});
         }
 
     }
 
-    onAnswerChangeCheckbox(value) {
+    onAnswerChangeCheckbox(value, right) {
         let newAnswers = this.state.answer02.slice();
 
         if (!~this.state.answer02.indexOf(value)) {
@@ -115,13 +157,14 @@ class Questions extends React.Component {
             newAnswers.splice(valueIndex, 1);
             this.setState({answer02: newAnswers});
         }
+
     }
 
-    onAnswerChangeText(value) {
+    onAnswerChangeText(value, right) {
         this.setState({answer03: value});
     }
 
-    onAnswerChangeSelect(value) {
+    onAnswerChangeSelect(value, right) {
         this.setState({answer04: value});
     }
 
@@ -151,7 +194,7 @@ class Questions extends React.Component {
                         <AnswersInput
                                 id="answer01"
                                 items={[7, 5, 9, 8]}
-                                right={9}
+                                right={8}
                                 type="radio"
                                 context={this}
                         />
@@ -194,6 +237,7 @@ class Questions extends React.Component {
                         <AnswersTexInput
                             id="answer03"
                             context={this}
+                            right="Юпитер"
                         />
                     </div>
                 </div>
@@ -206,7 +250,7 @@ class Questions extends React.Component {
                     />
                     <div className="question-body">
                         <AnswersSelect
-                            id="question04"
+                            id="answer04"
                             items={[
                                 "Ганимед",
                                 "Луна",
@@ -232,6 +276,7 @@ class Questions extends React.Component {
                             id="answer05"
                             items={["Да", "Нет"]}
                             type="radio"
+                            right="Да"
                             context={this}
                         />
                     </div>
@@ -281,7 +326,8 @@ class AnswersSelect extends React.Component {
     }
 
     componentDidMount() {
-        this.props.context.onAnswerChangeSelect(this.props.items[0])
+        this.props.context.onAnswerChangeSelect(this.props.items[0]);
+        localStorage.setItem(this.props.id, this.props.right);
     }
 
     handleChangeSelect(e) {
@@ -310,9 +356,11 @@ class AnswersInput extends React.Component {
         super(props);
         this.handleChangeRadio = this.handleChangeRadio.bind(this);
         this.handleChangeCheckbox = this.handleChangeCheckbox.bind(this);
-        this.state = {
-            componentId: 0
-        }
+    }
+
+    componentDidMount() {
+        let saveType = this.props.right;
+        localStorage.setItem(this.props.id, JSON.stringify(saveType));
     }
 
     handleChangeRadio(e) {
@@ -376,6 +424,10 @@ class AnswersTexInput extends React.Component {
     constructor(props) {
         super(props);
         this.handleChangeText = this.handleChangeText.bind(this);
+    }
+
+    componentDidMount() {
+        localStorage.setItem(this.props.id, this.props.right);
     }
 
     handleChangeText(e) {
