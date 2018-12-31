@@ -37,7 +37,22 @@ class Examine extends React.Component {
 
 const Result = (props) => {
         return (
-            <h3>{props.match.params.number}</h3>
+            <div className="result">
+                <h3>Результат экзамена</h3>
+                <div>Количество правильных ответов:</div>
+                <div>Общее количество вопросов:</div>
+                <Route render={({history}) => (
+                    <button
+                        className="btn"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            history.push(`/`);
+                        }}>
+                        Пройти экзамен заново
+                    </button>
+                )} />
+                <h3>Номер результата: {props.match.params.number}</h3>
+            </div>
         )
 };
 
@@ -59,13 +74,25 @@ class Questions extends React.Component {
         this.state = {
             allAreAnswered: false,
             isOpen: false,
+            id: '',
             answer01: '',
             answer02: [],
             answer03: '',
-            answer04: true,
+            answer04: '',
             answer05: ''
         };
         this.toggleModal = this.toggleModal.bind(this);
+    }
+
+    componentDidMount() {
+        let lastId = localStorage.getItem('lastId');
+        if (lastId) {
+            this.setState({id: +lastId + 1});
+            localStorage.setItem('lastId', +lastId + 1);
+        } else {
+            this.setState({id: 1});
+            localStorage.setItem('lastId', 1);
+        }
     }
 
     onAnswerChangeRadio(value, name) {
@@ -104,13 +131,13 @@ class Questions extends React.Component {
         });
     };
 
-    openNewPage(e) {
-        e.preventDefault();
-
-        //alert('New page will be here');
+    setStorage() {
+        localStorage.setItem(this.state.id, JSON.stringify(this.state));
     }
 
     render() {
+        let stateId = this.state.id;
+        let setStorage = this.setStorage.bind(this);
         return (
             <div className="questions">
                 <div className="question">
@@ -221,17 +248,24 @@ class Questions extends React.Component {
                                         allAreAnswered = false;
                                     }
                                 }
-                                allAreAnswered ? history.push(`/result`) : this.toggleModal();
+
+                                if (allAreAnswered) {
+                                    setStorage();
+                                    history.push(`/result/${stateId}`);
+                                } else {
+                                    this.toggleModal();
+                                }
                         }}>
                         Ответить
                     </button>
                 )} />
                 <Route render={({history}) => (
+
                     <Modal show={this.state.isOpen}
                            onClose={this.toggleModal}
                            onSubmit={() => {
-                               let id = 5;
-                               history.push(`/result/${id}`);
+                               setStorage();
+                               history.push(`/result/${stateId}`);
                            }}>
                     </Modal>
                 )} />
@@ -244,6 +278,10 @@ class AnswersSelect extends React.Component {
     constructor(props) {
         super(props);
         this.handleChangeSelect = this.handleChangeSelect.bind(this);
+    }
+
+    componentDidMount() {
+        this.props.context.onAnswerChangeSelect(this.props.items[0])
     }
 
     handleChangeSelect(e) {
