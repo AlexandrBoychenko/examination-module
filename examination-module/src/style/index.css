@@ -71,9 +71,9 @@ code {
   user-select: none;
 }
 
-textarea {
-  width: 100%;
-  padding: 12px 20px;
+input[type="text"] {
+  width: 20%;
+  padding: 8px 10px;
   margin: 8px 0;
   display: inline-block;
   border: 1px solid #ccc;

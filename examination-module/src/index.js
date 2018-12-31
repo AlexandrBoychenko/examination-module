@@ -6,7 +6,7 @@ import './style/default.css';
 import './style/radio.css';
 import './style/checkboxes.css';
 import './style/select.css';
-import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 
 const App = () => (
@@ -163,14 +163,12 @@ class Questions extends React.Component {
                         value={3}
                     />
                     <QuestionText
-                        value={'Что такое звезда?'}
+                        value={'Какая из планет солнечной системы имеет наибольший объем?'}
                     />
                     <div className="question-body">
                         <AnswersTexInput
                             id="answer03"
-                            value={this.state.answer}
                             context={this}
-                            onChange={this.handleUserInput}
                         />
                     </div>
                 </div>
@@ -320,7 +318,9 @@ class AnswersInput extends React.Component {
                             <span className="checkmark-checkbox"></span>
                         </label>
                     </li>
-                )
+                );
+            default :
+                return;
         }
     }
 
@@ -345,14 +345,11 @@ class AnswersTexInput extends React.Component {
 
     render() {
         return(
-            <textarea
+            <input type="text"
                 name="answer"
-                id=""
-                cols="30"
-                rows="10"
                 placeholder="Введите ваш ответ здесь"
                 onChange={this.handleChangeText}>
-            </textarea>
+            </input>
         )
     }
 }
