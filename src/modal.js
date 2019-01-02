@@ -15,7 +15,7 @@ class Modal extends React.Component {
                         Каждый не отвеченный ответ считается неправильным, Вы уверены что хотите продолжить?
                     </div>
                     <div className="btn-footer">
-                        <button className="btn btn-inline" onClick={this.props.onSubmit}>
+                        <button type="button" className="btn btn-inline" onClick={this.props.onSubmit}>
                             Ok
                         </button>
                         <button className="btn btn-inline" onClick={this.props.onClose}>

@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Modal from './modal';
+import Result from './result';
+import { HashRouter, Route, Switch } from 'react-router-dom';
+
 import './style/index.css';
 import './style/default.css';
 import './style/radio.css';
 import './style/checkboxes.css';
 import './style/select.css';
-import { HashRouter, Route, Switch } from 'react-router-dom';
 
 
 const App = () => (
@@ -20,83 +22,18 @@ class Examine extends React.Component {
 
     render() {
         return (
-            <div className="wrapper">
-                <form action="" className="examine">
-                    <ExamineTitle
-                        value={{
-                            mainTitle: 'Экзаменационный модуль',
-                            theme: 'Тема: Астрономия'
-                        }}
-                    />
-                    <Questions />
-                </form>
-            </div>
+            <form className="examine">
+                <ExamineTitle
+                    value={{
+                        mainTitle: 'Экзаменационный модуль',
+                        theme: 'Тема: Астрономия'
+                    }}
+                />
+                <Questions />
+            </form>
         );
     }
 }
-
-class Result extends React.Component{
-    constructor(props) {
-        super(props);
-        this.state = {
-            examCount: 0,
-            questionsCount: 0
-        }
-    }
-    componentDidMount() {
-        let resultState = JSON.parse(localStorage.getItem(this.props.match.params.number));
-        let examCount = 0;
-        let questionsCount = 0;
-
-        let examSummary = {
-            question01: resultState['answer01'] === localStorage.getItem('answer01'),
-            question02: this.compareWithRightAnswer(resultState['answer02'], JSON.parse(localStorage.getItem('answer02'))),
-            question03: resultState['answer03'] === localStorage.getItem('answer03'),
-            question04: resultState['answer04'] === localStorage.getItem('answer04'),
-            question05: resultState['answer05'] === JSON.parse(localStorage.getItem('answer05'))
-        };
-
-        for (let key in examSummary) {
-            questionsCount++;
-            if (examSummary[key]) {
-                examCount++
-             }
-        }
-        this.setState({questionsCount: questionsCount});
-        this.setState({examCount: examCount});
-    }
-
-    compareWithRightAnswer(array01, array02) {
-        return array01.length === array02.length && array01.every(
-            function(value, index) {
-                return value === array02[index];
-            }
-        )
-    }
-
-    render() {
-        return (
-            <div className="result">
-                <div className="result-text">
-                    <h3>Результат экзамена</h3>
-                    <div className="result-item">Количество правильных ответов: {this.state.examCount}</div>
-                    <div className="result-item">Общее количество вопросов: {this.state.questionsCount}</div>
-                    <div className="result-item">Номер результата: {this.props.match.params.number}</div>
-                </div>
-                <Route render={({history}) => (
-                    <button
-                        className="btn"
-                        onClick={(e) => {
-                            e.preventDefault();
-                            history.push(`/`);
-                        }}>
-                        Пройти экзамен заново
-                    </button>
-                )}/>
-            </div>
-        )
-    }
-};
 
 class ExamineTitle extends React.Component {
 
@@ -137,7 +74,7 @@ class Questions extends React.Component {
         }
     }
 
-    onAnswerChangeRadio(value, name, right) {
+    onAnswerChangeRadio(value, name) {
         if (name === "answer01") {
             this.setState({answer01: value});
         } else {
@@ -146,7 +83,7 @@ class Questions extends React.Component {
 
     }
 
-    onAnswerChangeCheckbox(value, right) {
+    onAnswerChangeCheckbox(value) {
         let newAnswers = this.state.answer02.slice();
 
         if (!~this.state.answer02.indexOf(value)) {
