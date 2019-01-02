@@ -6,7 +6,7 @@ import './style/default.css';
 import './style/radio.css';
 import './style/checkboxes.css';
 import './style/select.css';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 
 
 const App = () => (
@@ -467,7 +467,7 @@ class QuestionTitle extends React.Component {
 
 
 ReactDOM.render((
-    <BrowserRouter>
+    <HashRouter>
         <App />
-    </BrowserRouter>
+    </HashRouter>
     ), document.getElementById('root'));
