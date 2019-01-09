@@ -1,8 +1,9 @@
 import React from 'react';
 import Modal from './Modal';
-import AnswerInput from './AnswerInput'
-import AnswerSelect from './AnswerSelect'
-import AnswerTextInput from './AnswerTextInput'
+import AnswerInput from './AnswerInput';
+import AnswerSelect from './AnswerSelect';
+import AnswerTextInput from './AnswerTextInput';
+import questions from '../questions';
 import { Route } from 'react-router-dom';
 
 class Questions extends React.Component {
@@ -73,6 +74,53 @@ class Questions extends React.Component {
         localStorage.setItem(this.state.id, JSON.stringify(this.state));
     }
 
+    setProps(question) {
+        return {
+            key: question.id,
+            id: question.id,
+            items: question.items,
+            right: question.right,
+            type: question.type,
+            context: this
+        }
+    }
+
+    returnQuestionByType(question) {
+        let props = this.setProps(question);
+        switch (question.component) {
+            case 'AnswerInput':
+                return <AnswerInput
+                    {...props}
+                />;
+            case 'AnswerTextInput':
+                return <AnswerTextInput
+                    {...props}
+                />;
+            case 'AnswerSelect':
+                return <AnswerSelect
+                    {...props}
+                />;
+            default:
+                return;
+        }
+    }
+
+    renderQuestions() {
+        const questionObject = questions;
+
+        return questionObject.map((item, index) => {
+            return (
+                <div key={item.id} className="question">
+                    <h3 className="question-title">Вопрос {index + 1}</h3>
+                    <h2>{item.value}</h2>
+                    <div className="question-body">
+                        {this.returnQuestionByType(item)}
+                    </div>
+                </div>
+            )
+        });
+    }
+
     render() {
         let stateId = this.state.id;
         let setStorage = this.setStorage.bind(this);
@@ -80,104 +128,9 @@ class Questions extends React.Component {
 
         return (
             <div className="questions">
-                <div className="question">
-                    <QuestionTitle
-                        value={1}
-                    />
-                    <QuestionText
-                        value={'Сколько планет в солнечной системе?'}
-                    />
-                    <div className="question-body">
-                        <AnswerInput
-                            id="answer01"
-                            items={[7, 5, 9, 8]}
-                            right={8}
-                            type="radio"
-                            context={this}
-                        />
-                    </div>
-                </div>
-                <div className="question">
-                    <QuestionTitle
-                        value={2}
-                    />
-                    <QuestionText
-                        value={'Что характерно для кометы?'}
-                    />
-                    <div className="question-body">
-                        <AnswerInput
-                            id="answer02"
-                            items={[
-                                "Имеет хвост",
-                                "Вращается вокруг солнца",
-                                "Состоит из газа и пыли",
-                                "Существует только во внутренней области солнечной системы",
-                                "Не имеет ядра"
-                            ]}
-                            right={[
-                                "Имеет хвост",
-                                "Вращается вокруг солнца",
-                            ]}
-                            type="checkbox"
-                            context={this}
-                        />
-                    </div>
-                </div>
-                <div className="question">
-                    <QuestionTitle
-                        value={3}
-                    />
-                    <QuestionText
-                        value={'Какая из планет солнечной системы имеет наибольший объем?'}
-                    />
-                    <div className="question-body">
-                        <AnswerTextInput
-                            id="answer03"
-                            context={this}
-                            right="Юпитер"
-                        />
-                    </div>
-                </div>
-                <div className="question">
-                    <QuestionTitle
-                        value={4}
-                    />
-                    <QuestionText
-                        value={'Как называется естественный спутник Земли?'}
-                    />
-                    <div className="question-body">
-                        <AnswerSelect
-                            id="answer04"
-                            items={[
-                                "Ганимед",
-                                "Луна",
-                                "Фобос",
-                                "Титан",
-                                "Европа"
-                            ]}
-                            right="Луна"
-                            context={this}
-                        />
-                    </div>
-                </div>
-                <div className="question">
-                    <QuestionTitle
-                        value={5}
-                    />
-                    <QuestionText
-                        value={'Достигнул ли к настоящему моменту космический аппарат Voyager-2, сконструированный "NASA",' +
-                        ' пределов солнечной системы?'}
-                    />
-                    <div className="question-body">
-                        <AnswerInput
-                            id="answer05"
-                            items={["Да", "Нет"]}
-                            type="radio"
-                            right="Да"
-                            context={this}
-                        />
-                    </div>
-                </div>
+
+                {this.renderQuestions()}
+
                 <Route render={({history}) => (
                     <button
                         className="btn"
@@ -218,18 +171,5 @@ class Questions extends React.Component {
         )
     }
 }
-
-
-const QuestionText = (props) => {
-    return (
-        <h2>{props.value}</h2>
-    )
-};
-
-const QuestionTitle = (props) => {
-    return (
-        <h3 className="question-title">Вопрос {props.value}</h3>
-    )
-};
 
 export default Questions;
