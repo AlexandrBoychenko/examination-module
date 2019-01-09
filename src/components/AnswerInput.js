@@ -1,6 +1,6 @@
 import React from 'react';
 
-class AnswersInput extends React.Component {
+class AnswerInput extends React.Component {
     constructor(props) {
         super(props);
         this.handleChangeRadio = this.handleChangeRadio.bind(this);
@@ -68,4 +68,4 @@ class AnswersInput extends React.Component {
     }
 }
 
-export default AnswersInput;
+export default AnswerInput;

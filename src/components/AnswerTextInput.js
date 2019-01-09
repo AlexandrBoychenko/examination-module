@@ -1,6 +1,6 @@
 import React from 'react';
 
-class AnswersTextInput extends React.Component {
+class AnswerTextInput extends React.Component {
     constructor(props) {
         super(props);
         this.handleChangeText = this.handleChangeText.bind(this);
@@ -25,4 +25,4 @@ class AnswersTextInput extends React.Component {
     }
 }
 
-export default AnswersTextInput
+export default AnswerTextInput

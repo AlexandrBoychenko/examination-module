@@ -1,6 +1,6 @@
 import React from 'react';
 
-class AnswersSelect extends React.Component {
+class AnswerSelect extends React.Component {
     constructor(props) {
         super(props);
         this.handleChangeSelect = this.handleChangeSelect.bind(this);
@@ -32,4 +32,4 @@ class AnswersSelect extends React.Component {
     }
 }
 
-export default AnswersSelect;
+export default AnswerSelect;
