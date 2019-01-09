@@ -106,9 +106,7 @@ class Questions extends React.Component {
     }
 
     renderQuestions() {
-        const questionObject = questions;
-
-        return questionObject.map((item, index) => {
+        return questions.map((item, index) => {
             return (
                 <div key={item.id} className="question">
                     <h3 className="question-title">Вопрос {index + 1}</h3>
@@ -128,9 +126,7 @@ class Questions extends React.Component {
 
         return (
             <div className="questions">
-
                 {this.renderQuestions()}
-
                 <Route render={({history}) => (
                     <button
                         className="btn"

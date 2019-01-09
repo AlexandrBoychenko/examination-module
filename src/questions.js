@@ -5,8 +5,7 @@ export default [
         items: [7, 5, 9, 8],
         right: 8,
         type: "radio",
-        component: "AnswerInput",
-        context: this
+        component: "AnswerInput"
     },
     {
         id: "answer02",
@@ -24,7 +23,6 @@ export default [
         ],
         type: "checkbox",
         component: "AnswerInput",
-        context: this
     },
     {
         id: "answer03",
@@ -32,8 +30,7 @@ export default [
         items: null,
         right: 'Юпитер',
         type: null,
-        component: "AnswerTextInput",
-        context: this
+        component: "AnswerTextInput"
     },
     {
         id: "answer04",
@@ -47,8 +44,7 @@ export default [
         ],
         right: "Луна",
         type: null,
-        component: "AnswerSelect",
-        context: this
+        component: "AnswerSelect"
     },
     {
         id: "answer05",
@@ -57,7 +53,6 @@ export default [
         items: ["Да", "Нет"],
         right: "Да",
         type: "radio",
-        component: "AnswerInput",
-        context: this
+        component: "AnswerInput"
     }
 ];
