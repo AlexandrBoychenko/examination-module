@@ -7,7 +7,7 @@ class AnswerTextInput extends React.Component {
     }
 
     componentDidMount() {
-        localStorage.setItem(this.props.id, this.props.right);
+        localStorage.setItem(this.props.id, JSON.stringify(this.props.right.toLowerCase()));
     }
 
     handleChangeText(e) {

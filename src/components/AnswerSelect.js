@@ -8,7 +8,7 @@ class AnswerSelect extends React.Component {
 
     componentDidMount() {
         this.props.context.onAnswerChangeSelect(this.props.items[0]);
-        localStorage.setItem(this.props.id, this.props.right);
+        localStorage.setItem(this.props.id, JSON.stringify(this.props.right));
     }
 
     handleChangeSelect(e) {

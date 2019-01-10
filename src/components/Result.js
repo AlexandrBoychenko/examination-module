@@ -14,10 +14,10 @@ class Result extends React.Component{
         let questionsCount = 0;
 
         let examSummary = {
-            question01: resultState['answer01'] === localStorage.getItem('answer01'),
+            question01: resultState['answer01'] === getLocalData('answer01'),
             question02: this.compareWithRightAnswer(resultState['answer02'], getLocalData('answer02')),
-            question03: resultState['answer03'].toLowerCase() === localStorage.getItem('answer03').toLowerCase(),
-            question04: resultState['answer04'] === localStorage.getItem('answer04'),
+            question03: resultState['answer03'] === getLocalData('answer03'),
+            question04: resultState['answer04'] === getLocalData('answer04'),
             question05: resultState['answer05'] === getLocalData('answer05')
         };
     this.countResult(examSummary, questionsCount, examCount)
@@ -38,8 +38,7 @@ class Result extends React.Component{
                 examCount++
             }
         }
-        this.setState({questionsCount: questionsCount});
-        this.setState({examCount: examCount});
+        this.setState({questionsCount, examCount});
     }
 
     render() {

@@ -35,7 +35,7 @@ class Questions extends React.Component {
 
     onAnswerChangeRadio(value, name) {
         if (name === "answer01") {
-            this.setState({answer01: value});
+            this.setState({answer01: +value});
         } else {
             this.setState({answer05: value});
         }
@@ -57,7 +57,7 @@ class Questions extends React.Component {
     }
 
     onAnswerChangeText(value) {
-        this.setState({answer03: value});
+        this.setState({answer03: value.toLowerCase()});
     }
 
     onAnswerChangeSelect(value) {
