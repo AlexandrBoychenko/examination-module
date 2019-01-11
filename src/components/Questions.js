@@ -1,6 +1,7 @@
 import React from 'react';
 import Modal from './Modal';
-import AnswerInput from './AnswerInput';
+import AnswerRadio from './AnswerRadio';
+import AnswerCheckbox from './AnswerCheckbox';
 import AnswerSelect from './AnswerSelect';
 import AnswerTextInput from './AnswerTextInput';
 import questions from '../questions';
@@ -88,18 +89,14 @@ class Questions extends React.Component {
     returnQuestionByType(question) {
         let props = this.setProps(question);
         switch (question.component) {
-            case 'AnswerInput':
-                return <AnswerInput
-                    {...props}
-                />;
+            case 'AnswerRadio':
+                return <AnswerRadio {...props} />;
+            case 'AnswerCheckbox':
+                return <AnswerCheckbox {...props} />;
             case 'AnswerTextInput':
-                return <AnswerTextInput
-                    {...props}
-                />;
+                return <AnswerTextInput {...props} />;
             case 'AnswerSelect':
-                return <AnswerSelect
-                    {...props}
-                />;
+                return <AnswerSelect {...props} />;
             default:
                 return;
         }

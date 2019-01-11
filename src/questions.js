@@ -5,7 +5,7 @@ export default [
         items: [7, 5, 9, 8],
         right: 8,
         type: "radio",
-        component: "AnswerInput"
+        component: "AnswerRadio"
     },
     {
         id: "answer02",
@@ -22,7 +22,7 @@ export default [
             "Вращается вокруг солнца",
         ],
         type: "checkbox",
-        component: "AnswerInput",
+        component: "AnswerCheckbox",
     },
     {
         id: "answer03",
@@ -53,6 +53,6 @@ export default [
         items: ["Да", "Нет"],
         right: "Да",
         type: "radio",
-        component: "AnswerInput"
+        component: "AnswerRadio"
     }
 ];
