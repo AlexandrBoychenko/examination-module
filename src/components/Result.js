@@ -13,6 +13,14 @@ class Result extends React.Component{
         let examCount = 0;
         let questionsCount = 0;
 
+        let answersRadio = this.checkSingleValue(resultState);
+        let answersCheckbox = [];
+        let answersTextInput = [];
+        let answersSelect = [];
+        //let examSummary = [];
+
+
+
         let examSummary = {
             question01: resultState['answer01'] === getLocalData('answer01'),
             question02: this.compareWithRightAnswer(resultState['answer02'], getLocalData('answer02')),
@@ -21,6 +29,12 @@ class Result extends React.Component{
             question05: resultState['answer05'] === getLocalData('answer05')
         };
     this.countResult(examSummary, questionsCount, examCount)
+    }
+
+    checkSingleValue(resultState) {
+        return resultState.answersRadio.map((item) => {
+            return item.stringValue === getLocalData(item.id);
+        })
     }
 
     compareWithRightAnswer(array01, array02) {

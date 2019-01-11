@@ -13,12 +13,10 @@ class Questions extends React.Component {
         this.state = {
             allAreAnswered: false,
             isOpen: false,
-            id: '',
-            answer01: '',
-            answer02: [],
-            answer03: '',
-            answer04: '',
-            answer05: ''
+            answersRadio: [],
+            answersCheckbox: [],
+            answersTextInput: [],
+            answersSelect: []
         };
         this.toggleModal = this.toggleModal.bind(this);
     }
@@ -34,26 +32,45 @@ class Questions extends React.Component {
         }
     }
 
-    onAnswerChangeRadio(value, name) {
-        if (name === "answer01") {
-            this.setState({answer01: +value});
-        } else {
-            this.setState({answer05: value});
+    onAnswerChangeRadio(value, id) {
+        let stringValue = value;
+
+        if (!isNaN(value)) {
+            stringValue = +value;
         }
 
+        let answers = this.state.answersRadio.slice();
+        if (answers.length) {
+            answers.map((item, index) => {
+                if (item.id === id) {
+                    answers.splice(index, 1);
+                }
+            })
+        }
+        answers.push({id, stringValue});
+        this.setState({answersRadio: answers});
     }
 
-    onAnswerChangeCheckbox(value) {
-        let newAnswers = this.state.answer02.slice();
+    onAnswerChangeCheckbox(value, id) {
+        let checkboxesAnswers = this.state.answers.answersCheckbox;
+        let newAnswers = checkboxesAnswers.slice();
 
-        if (!~this.state.answer02.indexOf(value)) {
-            newAnswers.push(value);
-            this.setState({answer02: newAnswers});
-        } else {
-            let valueIndex = newAnswers.indexOf(value);
-            newAnswers.splice(valueIndex, 1);
-            this.setState({answer02: newAnswers});
-        }
+        newAnswers.forEach((item) => {
+            if (item.id === id) {
+                let elements = item.value.slice();
+
+                if (!~elements.indexOf(value)) {
+                    elements.push(value);
+
+                } else {
+                    let valueIndex = elements.indexOf(value);
+                    elements.splice(valueIndex, 1);
+                }
+                this.setState({answers: {answersCheckbox: {id, elements}}});
+            }
+        })
+
+
 
     }
 

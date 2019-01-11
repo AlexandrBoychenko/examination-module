@@ -6,7 +6,7 @@ export default [
         right: 8,
         type: "radio",
         component: "AnswerRadio"
-    },
+    },/*
     {
         id: "answer02",
         value: 'Что характерно для кометы?',
@@ -45,13 +45,21 @@ export default [
         right: "Луна",
         type: null,
         component: "AnswerSelect"
-    },
+    },*/
     {
         id: "answer05",
         value: 'Достигнул ли к настоящему моменту космический аппарат Voyager-2, сконструированный "NASA",' +
         ' пределов солнечной системы?',
         items: ["Да", "Нет"],
         right: "Да",
+        type: "radio",
+        component: "AnswerRadio"
+    },
+    {
+        id: "answer06",
+        value: 'Есть ли жизнь на Марсе?',
+        items: ["Да", "Нет", "Неизвестно"],
+        right: "Неизвестно",
         type: "radio",
         component: "AnswerRadio"
     }

@@ -11,7 +11,7 @@ class AnswerCheckbox extends React.Component {
     }
 
     handleChangeCheckbox(e) {
-        this.props.context.onAnswerChangeCheckbox(e.target.value);
+        this.props.context.onAnswerChangeCheckbox(e.target.value, this.props.id);
     }
 
     renderItems() {
