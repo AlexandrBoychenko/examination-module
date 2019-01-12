@@ -11,23 +11,24 @@ class Result extends React.Component{
     componentDidMount() {
         const resultState = getLocalData(this.props.match.params.number);
         let examCount = 0;
-        let questionsCount = 0;
+        let questionsCount;
 
         let answersRadio = this.checkSingleValue(resultState);
         let answersCheckbox = [];
         let answersTextInput = [];
         let answersSelect = [];
-        //let examSummary = [];
+        let examSummary = answersRadio;
 
 
 
-        let examSummary = {
+        /*let examSummary = {
             question01: resultState['answer01'] === getLocalData('answer01'),
             question02: this.compareWithRightAnswer(resultState['answer02'], getLocalData('answer02')),
             question03: resultState['answer03'] === getLocalData('answer03'),
             question04: resultState['answer04'] === getLocalData('answer04'),
             question05: resultState['answer05'] === getLocalData('answer05')
-        };
+        };*/
+    questionsCount = examSummary.length;
     this.countResult(examSummary, questionsCount, examCount)
     }
 
@@ -46,12 +47,13 @@ class Result extends React.Component{
     }
 
     countResult(examSummary, questionsCount, examCount) {
-        for (let key in examSummary) {
+
+        examSummary.forEach((answer) => {
             questionsCount++;
-            if (examSummary[key]) {
+            if (answer) {
                 examCount++
             }
-        }
+        });
         this.setState({questionsCount, examCount});
     }
 
