@@ -41,7 +41,7 @@ class Questions extends React.Component {
 
         let answers = this.state.answersRadio.slice();
         if (answers.length) {
-            answers.map((item, index) => {
+            answers.forEach((item, index) => {
                 if (item.id === id) {
                     answers.splice(index, 1);
                 }
@@ -52,26 +52,30 @@ class Questions extends React.Component {
     }
 
     onAnswerChangeCheckbox(value, id) {
-        let checkboxesAnswers = this.state.answers.answersCheckbox;
-        let newAnswers = checkboxesAnswers.slice();
+        let answers = this.state.answersCheckbox.slice();
 
-        newAnswers.forEach((item) => {
-            if (item.id === id) {
-                let elements = item.value.slice();
+        if (!answers.length) {
+            let values = [];
+            values.push(value);
+            answers.push({id, value: values});
+            this.setState({answersCheckbox: answers});
+        } else {
+            answers.forEach((item, index) => {
+                if (item.id === id) {
+                    let elements = item.value.slice();
 
-                if (!~elements.indexOf(value)) {
-                    elements.push(value);
+                    if (!~elements.indexOf(value)) {
+                        elements.push(value);
 
-                } else {
-                    let valueIndex = elements.indexOf(value);
-                    elements.splice(valueIndex, 1);
+                    } else {
+                        let valueIndex = elements.indexOf(value);
+                        elements.splice(valueIndex, 1);
+                    }
+                    answers[index].value = elements;
                 }
-                this.setState({answers: {answersCheckbox: {id, elements}}});
-            }
-        })
-
-
-
+            });
+            this.setState({answersCheckbox: answers});
+        }
     }
 
     onAnswerChangeText(value) {

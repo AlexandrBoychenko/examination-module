@@ -13,11 +13,12 @@ class Result extends React.Component{
         let examCount = 0;
         let questionsCount;
 
-        let answersRadio = this.checkSingleValue(resultState);
-        let answersCheckbox = [];
-        let answersTextInput = [];
-        let answersSelect = [];
-        let examSummary = answersRadio;
+        let answersRadio = this.checkSingleValue(resultState.answersRadio);
+        let answersCheckbox = this.compareCheckboxes(resultState.answersCheckbox);
+        let answersTextInput = this.checkSingleValue(resultState.answersTextInput);
+        let answersSelect = this.checkSingleValue(resultState.answersSelect);;
+
+        let examSummary = [].concat(answersRadio, answersCheckbox, answersTextInput, answersSelect);
 
 
 
@@ -32,16 +33,21 @@ class Result extends React.Component{
     this.countResult(examSummary, questionsCount, examCount)
     }
 
-    checkSingleValue(resultState) {
-        return resultState.answersRadio.map((item) => {
+    checkSingleValue(results) {
+        return results.map((item) => {
             return item.stringValue === getLocalData(item.id);
         })
     }
 
-    compareWithRightAnswer(array01, array02) {
-        return array01.length === array02.length && array01.every(
-                function(value, index) {
-                    return value === array02[index];
+    compareCheckboxes(results) {
+        return results.map((item) => {
+            return this.compareTwoArrays(item.value, getLocalData(item.id));
+        })
+    }
+
+    compareTwoArrays(array01, array02) {
+        return array01.length === array02.length && array01.every((value) =>{
+                    return ~array02.indexOf(value);
                 }
             )
     }

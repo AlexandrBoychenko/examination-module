@@ -6,7 +6,7 @@ export default [
         right: 8,
         type: "radio",
         component: "AnswerRadio"
-    },/*
+    },
     {
         id: "answer02",
         value: 'Что характерно для кометы?',
@@ -23,7 +23,7 @@ export default [
         ],
         type: "checkbox",
         component: "AnswerCheckbox",
-    },
+    },/*
     {
         id: "answer03",
         value: 'Какая из планет солнечной системы имеет наибольший объем?',
