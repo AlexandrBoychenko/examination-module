@@ -23,7 +23,7 @@ export default [
         ],
         type: "checkbox",
         component: "AnswerCheckbox",
-    },/*
+    },
     {
         id: "answer03",
         value: 'Какая из планет солнечной системы имеет наибольший объем?',
@@ -45,7 +45,7 @@ export default [
         right: "Луна",
         type: null,
         component: "AnswerSelect"
-    },*/
+    },
     {
         id: "answer05",
         value: 'Достигнул ли к настоящему моменту космический аппарат Voyager-2, сконструированный "NASA",' +

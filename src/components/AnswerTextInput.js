@@ -11,7 +11,7 @@ class AnswerTextInput extends React.Component {
     }
 
     handleChangeText(e) {
-        this.props.context.onAnswerChangeText(e.target.value)
+        this.props.context.onAnswerChangeText(e.target.value, this.props.id)
     };
 
     render() {

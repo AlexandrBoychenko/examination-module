@@ -33,10 +33,8 @@ class Questions extends React.Component {
     }
 
     onAnswerChangeRadio(value, id) {
-        let stringValue = value;
-
         if (!isNaN(value)) {
-            stringValue = +value;
+            value = +value;
         }
 
         let answers = this.state.answersRadio.slice();
@@ -47,7 +45,7 @@ class Questions extends React.Component {
                 }
             })
         }
-        answers.push({id, stringValue});
+        answers.push({id, value});
         this.setState({answersRadio: answers});
     }
 
@@ -78,12 +76,22 @@ class Questions extends React.Component {
         }
     }
 
-    onAnswerChangeText(value) {
-        this.setState({answer03: value.toLowerCase()});
+    onAnswerChangeText(value, id) {
+        let answers = this.state.answersTextInput.slice();
+        answers.push({id, value});
+        this.setState({answersTextInput: answers});
     }
 
-    onAnswerChangeSelect(value) {
-        this.setState({answer04: value});
+    onAnswerChangeSelect(value, id) {
+        let answers = this.state.answersSelect.slice();
+        answers.push({id, value});
+
+        answers.forEach((answer, index) => {
+            if (answers[++index] && answer.id === answers[index].id) {
+                answers.splice(--index, 1);
+            }
+        });
+        this.setState({answersSelect: answers});
     }
 
     toggleModal() {

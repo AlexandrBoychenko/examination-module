@@ -24,17 +24,15 @@ code {
   padding: 2%;
 }
 
-.question:nth-child(5) {
+.question:last-child {
   border-bottom: 1px solid #2196F3;
 }
 
-/*buttons*/
-
 .btn {
-  border: none; /* Remove borders */
-  color: white; /* Add a text color */
-  padding: 14px 28px; /* Add some padding */
-  cursor: pointer; /* Add a pointer cursor on mouse-over */
+  border: none;
+  color: white;
+  padding: 14px 28px;
+  cursor: pointer;
   background-color: #2196F3;
   display: table;
   margin: 2% auto;

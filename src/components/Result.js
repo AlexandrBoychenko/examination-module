@@ -1,22 +1,20 @@
 import React from 'react';
+import questions from '../questions';
 
 class Result extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            examCount: 0,
-            questionsCount: 0
+            examResult: 0
         }
     }
     componentDidMount() {
         const resultState = getLocalData(this.props.match.params.number);
-        let examCount = 0;
-        let questionsCount;
 
         let answersRadio = this.checkSingleValue(resultState.answersRadio);
         let answersCheckbox = this.compareCheckboxes(resultState.answersCheckbox);
         let answersTextInput = this.checkSingleValue(resultState.answersTextInput);
-        let answersSelect = this.checkSingleValue(resultState.answersSelect);;
+        let answersSelect = this.checkSingleValue(resultState.answersSelect);
 
         let examSummary = [].concat(answersRadio, answersCheckbox, answersTextInput, answersSelect);
 
@@ -29,13 +27,12 @@ class Result extends React.Component{
             question04: resultState['answer04'] === getLocalData('answer04'),
             question05: resultState['answer05'] === getLocalData('answer05')
         };*/
-    questionsCount = examSummary.length;
-    this.countResult(examSummary, questionsCount, examCount)
+    this.countResult(examSummary)
     }
 
     checkSingleValue(results) {
         return results.map((item) => {
-            return item.stringValue === getLocalData(item.id);
+            return item.value === getLocalData(item.id);
         })
     }
 
@@ -52,15 +49,14 @@ class Result extends React.Component{
             )
     }
 
-    countResult(examSummary, questionsCount, examCount) {
-
+    countResult(examSummary) {
+        let examResult = 0;
         examSummary.forEach((answer) => {
-            questionsCount++;
             if (answer) {
-                examCount++
+                examResult++
             }
         });
-        this.setState({questionsCount, examCount});
+        this.setState({examResult});
     }
 
     render() {
@@ -68,8 +64,8 @@ class Result extends React.Component{
             <div className="result">
                 <div className="result-text">
                     <h3>Результат экзамена</h3>
-                    <div className="result-item">Количество правильных ответов: {this.state.examCount}</div>
-                    <div className="result-item">Общее количество вопросов: {this.state.questionsCount}</div>
+                    <div className="result-item">Количество правильных ответов: {this.state.examResult}</div>
+                    <div className="result-item">Общее количество вопросов: {questions.length}</div>
                     <div className="result-item">Номер результата: {this.props.match.params.number}</div>
                 </div>
                 <button
