@@ -20,12 +20,12 @@ code {
 
 .question {
   border: 1px solid #2196F3;
-  border-bottom: none;
+  border-top: none;
   padding: 2%;
 }
 
-.question:last-child {
-  border-bottom: 1px solid #2196F3;
+.question:first-child {
+  border-top: 1px solid #2196F3;
 }
 
 .btn {

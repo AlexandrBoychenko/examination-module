@@ -4,7 +4,6 @@ export default [
         value: 'Сколько планет в солнечной системе?',
         items: [7, 5, 9, 8],
         right: 8,
-        type: "radio",
         component: "AnswerRadio"
     },
     {
@@ -21,7 +20,6 @@ export default [
             "Имеет хвост",
             "Вращается вокруг солнца",
         ],
-        type: "checkbox",
         component: "AnswerCheckbox",
     },
     {
@@ -29,7 +27,6 @@ export default [
         value: 'Какая из планет солнечной системы имеет наибольший объем?',
         items: null,
         right: 'Юпитер',
-        type: null,
         component: "AnswerTextInput"
     },
     {
@@ -43,7 +40,6 @@ export default [
             "Европа"
         ],
         right: "Луна",
-        type: null,
         component: "AnswerSelect"
     },
     {
@@ -52,7 +48,6 @@ export default [
         ' пределов солнечной системы?',
         items: ["Да", "Нет"],
         right: "Да",
-        type: "radio",
         component: "AnswerRadio"
     },
     {
@@ -60,7 +55,18 @@ export default [
         value: 'Есть ли жизнь на Марсе?',
         items: ["Да", "Нет", "Неизвестно"],
         right: "Неизвестно",
-        type: "radio",
         component: "AnswerRadio"
+    },
+    {
+        id: "answer07",
+        value: 'Как называется наша галлактика?',
+        items: [
+            "Млечный путь",
+            "Андромеда",
+            "Сириус",
+            "Альфа Центавра"
+        ],
+        right: "Млечный путь",
+        component: "AnswerSelect"
     }
 ];

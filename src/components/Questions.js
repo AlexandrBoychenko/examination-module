@@ -110,7 +110,6 @@ class Questions extends React.Component {
             id: question.id,
             items: question.items,
             right: question.right,
-            type: question.type,
             context: this
         }
     }

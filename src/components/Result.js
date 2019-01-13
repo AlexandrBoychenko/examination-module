@@ -17,17 +17,7 @@ class Result extends React.Component{
         let answersSelect = this.checkSingleValue(resultState.answersSelect);
 
         let examSummary = [].concat(answersRadio, answersCheckbox, answersTextInput, answersSelect);
-
-
-
-        /*let examSummary = {
-            question01: resultState['answer01'] === getLocalData('answer01'),
-            question02: this.compareWithRightAnswer(resultState['answer02'], getLocalData('answer02')),
-            question03: resultState['answer03'] === getLocalData('answer03'),
-            question04: resultState['answer04'] === getLocalData('answer04'),
-            question05: resultState['answer05'] === getLocalData('answer05')
-        };*/
-    this.countResult(examSummary)
+        this.countResult(examSummary)
     }
 
     checkSingleValue(results) {
