@@ -6,6 +6,7 @@ import AnswerSelect from './AnswerSelect';
 import AnswerTextInput from './AnswerTextInput';
 import questions from '../questions';
 import { Route } from 'react-router-dom';
+import { questionsNumber, getResultArray } from '../helpers';
 
 class Questions extends React.Component {
     constructor(props) {
@@ -22,6 +23,10 @@ class Questions extends React.Component {
     }
 
     componentDidMount() {
+        this.setLastId();
+    }
+
+    setLastId() {
         let lastId = localStorage.getItem('lastId');
         if (lastId) {
             this.setState({id: +lastId + 1});
@@ -147,7 +152,6 @@ class Questions extends React.Component {
     render() {
         let stateId = this.state.id;
         let setStorage = this.setStorage.bind(this);
-        let state = this.state;
 
         return (
             <div className="questions">
@@ -159,14 +163,10 @@ class Questions extends React.Component {
                             e.preventDefault();
 
                             let allAreAnswered = true;
-                            for (let key in state) {
-                                if (!state[key]
-                                    && key !== "allAreAnswered"
-                                    && key !== "isOpen"
-                                ) {
+                            let results = getResultArray(this.state);
+                                if (results.length < questionsNumber) {
                                     allAreAnswered = false;
                                 }
-                            }
 
                             if (allAreAnswered) {
                                 setStorage();
