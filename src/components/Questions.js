@@ -149,10 +149,21 @@ class Questions extends React.Component {
         });
     }
 
-    render() {
-        let stateId = this.state.id;
-        let setStorage = this.setStorage.bind(this);
+    handleRoute() {
+        this.setStorage();
+        return `/result/${this.state.id}`;
+    };
 
+    handleAnswers() {
+        let results = getResultArray(this.state);
+        if (results.length < questionsNumber) {
+            this.toggleModal();
+        } else {
+            return true;
+        }
+    }
+
+    render() {
         return (
             <div className="questions">
                 {this.renderQuestions()}
@@ -161,18 +172,8 @@ class Questions extends React.Component {
                         className="btn"
                         onClick={(e) => {
                             e.preventDefault();
-
-                            let allAreAnswered = true;
-                            let results = getResultArray(this.state);
-                                if (results.length < questionsNumber) {
-                                    allAreAnswered = false;
-                                }
-
-                            if (allAreAnswered) {
-                                setStorage();
-                                history.push(`/result/${stateId}`);
-                            } else {
-                                this.toggleModal();
+                            if (this.handleAnswers()) {
+                                history.push(this.handleRoute());
                             }
                         }}>
                         Ответить
@@ -183,8 +184,7 @@ class Questions extends React.Component {
                     <Modal show={this.state.isOpen}
                            onClose={this.toggleModal}
                            onSubmit={() => {
-                               setStorage();
-                               history.push(`/result/${stateId}`);
+                               history.push(this.handleRoute());
                            }}>
                     </Modal>
                 )} />

@@ -1,5 +1,5 @@
 import React from 'react';
-import { getLocalData, questionsNumber, getResultArray } from '../helpers';
+import { questionsNumber, getLocalData, getResultArray } from '../helpers';
 
 class Result extends React.Component {
     constructor(props) {
