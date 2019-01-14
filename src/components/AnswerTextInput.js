@@ -1,4 +1,5 @@
 import React from 'react';
+import { setLocalStorage } from '../helpers'
 
 class AnswerTextInput extends React.Component {
     constructor(props) {
@@ -7,7 +8,7 @@ class AnswerTextInput extends React.Component {
     }
 
     componentDidMount() {
-        localStorage.setItem(this.props.id, JSON.stringify(this.props.right.toLowerCase()));
+        setLocalStorage(this.props.id, this.props.right.toLowerCase());
     }
 
     handleChangeText(e) {

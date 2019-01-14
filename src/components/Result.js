@@ -10,17 +10,7 @@ class Result extends React.Component {
     }
     componentDidMount() {
         const resultState = getLocalData(this.props.match.params.number);
-        const examSummary = getResultArray(resultState);
-        this.countResult(examSummary);
-    }
-
-    countResult(examSummary) {
-        let examResult = this.state.examResult;
-        examSummary.forEach((answer) => {
-            if (answer) {
-                examResult++
-            }
-        });
+        const examResult = getResultArray(resultState).length;
         this.setState({examResult});
     }
 

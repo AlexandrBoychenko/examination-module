@@ -1,4 +1,5 @@
 import React from 'react';
+import { setLocalStorage } from '../helpers'
 
 class AnswerRadio extends React.Component {
     constructor(props) {
@@ -7,7 +8,7 @@ class AnswerRadio extends React.Component {
     }
 
     componentDidMount() {
-        localStorage.setItem(this.props.id, JSON.stringify(this.props.right));
+        setLocalStorage(this.props.id, this.props.right);
     }
 
     handleChangeRadio(e) {

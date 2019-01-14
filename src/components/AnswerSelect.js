@@ -1,4 +1,5 @@
 import React from 'react';
+import { setLocalStorage } from '../helpers'
 
 class AnswerSelect extends React.Component {
     constructor(props) {
@@ -8,7 +9,7 @@ class AnswerSelect extends React.Component {
 
     componentDidMount() {
         this.props.context.onAnswerChangeSelect(this.props.items[0], this.props.id);
-        localStorage.setItem(this.props.id, JSON.stringify(this.props.right));
+        setLocalStorage(this.props.id, this.props.right);
     }
 
     handleChangeSelect(e) {

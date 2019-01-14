@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Result from './components/Result';
-import Questions from './components/Questions';
+import Exam from './components/Exam';
 
 import { HashRouter, Route, Switch } from 'react-router-dom';
 
@@ -14,34 +14,10 @@ import './style/select.css';
 
 const App = () => (
     <Switch>
-        <Route exact path='/' component={Examine}/>
+        <Route exact path='/' component={Exam}/>
         <Route path='/result/:number' component={Result}/>
     </Switch>
 );
-
-class Examine extends React.Component {
-
-    render() {
-        return (
-            <form className="examine">
-                <ExamineTitle/>
-                <Questions />
-            </form>
-        );
-    }
-}
-
-class ExamineTitle extends React.Component {
-
-    render() {
-        return (
-            <div className="titles">
-                <h1>Экзаменационный модуль</h1>
-                <h2>Тема: Астрономия</h2>
-            </div>
-        )
-    }
-}
 
 ReactDOM.render((
     <HashRouter>

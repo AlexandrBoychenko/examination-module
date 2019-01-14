@@ -5,8 +5,8 @@ import AnswerCheckbox from './AnswerCheckbox';
 import AnswerSelect from './AnswerSelect';
 import AnswerTextInput from './AnswerTextInput';
 import questions from '../questions';
-import { Route } from 'react-router-dom';
 import { questionsNumber, getResultArray } from '../helpers';
+import { Route } from 'react-router-dom';
 
 class Questions extends React.Component {
     constructor(props) {
@@ -156,11 +156,7 @@ class Questions extends React.Component {
 
     handleAnswers() {
         let results = getResultArray(this.state);
-        if (results.length < questionsNumber) {
-            this.toggleModal();
-        } else {
-            return true;
-        }
+        return (results.length < questionsNumber) ? this.toggleModal(): true;
     }
 
     render() {
