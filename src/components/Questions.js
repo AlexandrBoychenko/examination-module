@@ -83,7 +83,7 @@ class Questions extends React.Component {
 
     onAnswerChangeText(value, id) {
         let answers = this.state.answersTextInput.slice();
-        answers.push({id, value});
+        answers.push({id, value: value.toLowerCase()});
         this.setState({answersTextInput: answers});
     }
 

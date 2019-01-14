@@ -9,23 +9,14 @@ const getLocalData = (item) => {
 const getResultArray = (resultState) => {
     let answersRadio = checkSingleValue(resultState.answersRadio);
     let answersCheckbox = compareCheckboxes(resultState.answersCheckbox);
-    let answersTextInput = checkTextValue(resultState.answersTextInput);
+    let answersTextInput = checkSingleValue(resultState.answersTextInput);
     let answersSelect = checkSingleValue(resultState.answersSelect);
 
     return [].concat(answersRadio, answersCheckbox, answersTextInput, answersSelect);
 };
 
 const checkSingleValue = (results) => {
-    return results.map((item) => {
-        return item.value === getLocalData(item.id);
-    })
-};
-
-const checkTextValue = (results) => {
-    return results.map((item, index) => {
-        if (item.id === getLocalData(item.id) && results[index + 1]) {
-            results.splice(index + 1, 1)
-        }
+    return results.filter((item) => {
         return item.value === getLocalData(item.id);
     })
 };
