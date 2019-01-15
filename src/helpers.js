@@ -11,25 +11,23 @@ const setLocalStorage = (item, data) => {
 };
 
 const getResultArray = (resultState) => {
-    let answersRadio = getRightAnswer(resultState.answersRadio);
-    let answersCheckbox = getRightCheckboxes(resultState.answersCheckbox);
-    let answersTextInput = getRightAnswer(resultState.answersTextInput);
-    let answersSelect = getRightAnswer(resultState.answersSelect);
+    let answersRadio = getBooleans(resultState.answersRadio);
+    let answersCheckbox = getBooleans(resultState.answersCheckbox);
+    let answersTextInput = getBooleans(resultState.answersTextInput);
+    let answersSelect = getBooleans(resultState.answersSelect);
 
     return [].concat(answersRadio, answersCheckbox, answersTextInput, answersSelect);
 };
 
-const getRightAnswer = (results) => {
-    return results.filter((item) => {
-        return item.value === getLocalData(item.id);
+const getBooleans = (results) => {
+    return results.map((item) => {
+        if (Array.isArray(item.value)) {
+            return compareTwoArrays(item.value, getLocalData(item.id))
+        } else {
+            return item.value === getLocalData(item.id);
+        }
     })
-};
-
-const getRightCheckboxes = (results) => {
-    return results.filter((item) => {
-        return compareTwoArrays(item.value, getLocalData(item.id));
-    })
-};
+}
 
 const compareTwoArrays = (array01, array02) => {
     return array01.length === array02.length && array01.every((value) =>{

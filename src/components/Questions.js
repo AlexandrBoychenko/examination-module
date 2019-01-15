@@ -83,31 +83,25 @@ class Questions extends React.Component {
 
     onAnswerChangeText(value, id) {
         let answers = this.state.answersTextInput.slice();
+        this.removePreviousAnswer(answers, id);
         answers.push({id, value: value.toLowerCase()});
         this.setState({answersTextInput: answers});
     }
 
     onAnswerChangeSelect(value, id) {
         let answers = this.state.answersSelect.slice();
-
-
         this.removePreviousAnswer(answers, id);
         answers.push({id, value});
         this.setState({answersSelect: answers});
     }
 
-    removePreviousAnswer(answers, currentId) {
+    removePreviousAnswer(answers, id) {
         for(let i = 0; i < answers.length; i++) {
-            if (answers.id === currentId) {
+            if (answers[i].id === id) {
                 answers.splice(0, 1);
                 return
             }
         }
-        answers.forEach((answer, index) => {
-            if (answer.id === currentId) {
-                answers.splice(index, 1);
-            }
-        });
     }
 
     toggleModal() {
