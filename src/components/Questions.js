@@ -1,9 +1,9 @@
 import React from 'react';
 import Modal from './Modal';
-import AnswerRadio from './AnswerRadio';
-import AnswerCheckbox from './AnswerCheckbox';
-import AnswerSelect from './AnswerSelect';
-import AnswerTextInput from './AnswerTextInput';
+import Radio from './Radio';
+import Checkbox from './Checkbox';
+import Select from './Select';
+import TextInput from './TextInput';
 import questions from '../questions';
 import { questionsNumber, getResultArray } from '../helpers';
 import { Route } from 'react-router-dom';
@@ -14,10 +14,10 @@ class Questions extends React.Component {
         this.state = {
             allAreAnswered: false,
             isOpen: false,
-            answersRadio: [],
-            answersCheckbox: [],
-            answersTextInput: [],
-            answersSelect: []
+            Radio: [],
+            Checkbox: [],
+            TextInput: [],
+            Select: []
         };
         this.toggleModal = this.toggleModal.bind(this);
     }
@@ -42,7 +42,7 @@ class Questions extends React.Component {
             value = +value;
         }
 
-        let answers = this.state.answersRadio.slice();
+        let answers = this.state.Radio.slice();
         if (answers.length) {
             answers.forEach((item, index) => {
                 if (item.id === id) {
@@ -51,17 +51,17 @@ class Questions extends React.Component {
             })
         }
         answers.push({id, value});
-        this.setState({answersRadio: answers});
+        this.setState({Radio: answers});
     }
 
     onAnswerChangeCheckbox(value, id) {
-        let answers = this.state.answersCheckbox.slice();
+        let answers = this.state.Checkbox.slice();
 
         if (!answers.length) {
             let values = [];
             values.push(value);
             answers.push({id, value: values});
-            this.setState({answersCheckbox: answers});
+            this.setState({Checkbox: answers});
         } else {
             answers.forEach((item, index) => {
                 if (item.id === id) {
@@ -77,22 +77,22 @@ class Questions extends React.Component {
                     answers[index].value = elements;
                 }
             });
-            this.setState({answersCheckbox: answers});
+            this.setState({Checkbox: answers});
         }
     }
 
     onAnswerChangeText(value, id) {
-        let answers = this.state.answersTextInput.slice();
+        let answers = this.state.TextInput.slice();
         this.removePreviousAnswer(answers, id);
         answers.push({id, value: value.toLowerCase()});
-        this.setState({answersTextInput: answers});
+        this.setState({TextInput: answers});
     }
 
     onAnswerChangeSelect(value, id) {
-        let answers = this.state.answersSelect.slice();
+        let answers = this.state.Select.slice();
         this.removePreviousAnswer(answers, id);
         answers.push({id, value});
-        this.setState({answersSelect: answers});
+        this.setState({Select: answers});
     }
 
     removePreviousAnswer(answers, id) {
@@ -123,15 +123,15 @@ class Questions extends React.Component {
 
     returnQuestionByType(question) {
         let props = this.setProps(question);
-        switch (question.component) {
-            case 'AnswerRadio':
-                return <AnswerRadio {...props} />;
-            case 'AnswerCheckbox':
-                return <AnswerCheckbox {...props} />;
-            case 'AnswerTextInput':
-                return <AnswerTextInput {...props} />;
-            case 'AnswerSelect':
-                return <AnswerSelect {...props} />;
+        switch (question.type) {
+            case 'Radio':
+                return <Radio {...props} />;
+            case 'Checkbox':
+                return <Checkbox {...props} />;
+            case 'TextInput':
+                return <TextInput {...props} />;
+            case 'Select':
+                return <Select {...props} />;
             default:
                 return;
         }

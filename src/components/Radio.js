@@ -1,7 +1,7 @@
 import React from 'react';
 import { setLocalStorage } from '../helpers'
 
-class AnswerRadio extends React.Component {
+class Radio extends React.Component {
     constructor(props) {
         super(props);
         this.handleChangeRadio = this.handleChangeRadio.bind(this);
@@ -47,4 +47,4 @@ class AnswerRadio extends React.Component {
     }
 }
 
-export default AnswerRadio;
+export default Radio;

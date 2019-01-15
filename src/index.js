@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Result from './components/Result';
 import Exam from './components/Exam';
+import Result from './components/Result';
 
 import { HashRouter, Route, Switch } from 'react-router-dom';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { setLocalStorage } from '../helpers'
 
-class AnswerCheckbox extends React.Component {
+class Checkbox extends React.Component {
     constructor(props) {
         super(props);
         this.handleChangeCheckbox = this.handleChangeCheckbox.bind(this);
@@ -44,4 +44,4 @@ class AnswerCheckbox extends React.Component {
     }
 }
 
-export default AnswerCheckbox;
+export default Checkbox;

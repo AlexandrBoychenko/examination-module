@@ -11,8 +11,8 @@ const setLocalStorage = (item, data) => {
 };
 
 const getResultArray = (resultState) => {
-    let {answersRadio, answersCheckbox, answersTextInput, answersSelect} = resultState;
-    let results = [].concat(answersRadio, answersCheckbox, answersTextInput, answersSelect);
+    let {Radio, Checkbox, TextInput, Select} = resultState;
+    let results = [].concat(Radio, Checkbox, TextInput, Select);
     return getBooleans(results);
 };
 

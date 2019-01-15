@@ -1,13 +1,13 @@
 export default [
     {
-        id: "answer01",
+        id: "question01",
         value: 'Сколько планет в солнечной системе?',
         items: [7, 5, 9, 8],
         right: 8,
-        component: "AnswerRadio"
+        type: "Radio"
     },
     {
-        id: "answer02",
+        id: "question02",
         value: 'Что характерно для кометы?',
         items: [
             "Имеет хвост",
@@ -20,17 +20,17 @@ export default [
             "Имеет хвост",
             "Вращается вокруг солнца",
         ],
-        component: "AnswerCheckbox",
+        type: "Checkbox",
     },
     {
-        id: "answer03",
+        id: "question03",
         value: 'Какая из планет солнечной системы имеет наибольший объем?',
         items: null,
         right: 'Юпитер',
-        component: "AnswerTextInput"
+        type: "TextInput"
     },
     {
-        id: "answer04",
+        id: "question04",
         value: 'Как называется естественный спутник Земли?',
         items: [
             "Ганимед",
@@ -40,25 +40,25 @@ export default [
             "Европа"
         ],
         right: "Луна",
-        component: "AnswerSelect"
+        type: "Select"
     },
     {
-        id: "answer05",
+        id: "question05",
         value: 'Достигнул ли к настоящему моменту космический аппарат Voyager-2, сконструированный "NASA",' +
         ' пределов солнечной системы?',
         items: ["Да", "Нет"],
         right: "Да",
-        component: "AnswerRadio"
+        type: "Radio"
     },
     {
-        id: "answer06",
+        id: "question06",
         value: 'Есть ли жизнь на Марсе?',
         items: ["Да", "Нет", "Неизвестно"],
         right: "Неизвестно",
-        component: "AnswerRadio"
+        type: "Radio"
     },
     {
-        id: "answer07",
+        id: "question07",
         value: 'Как называется наша галлактика?',
         items: [
             "Андромеда",
@@ -67,6 +67,6 @@ export default [
             "Млечный путь"
         ],
         right: "Млечный путь",
-        component: "AnswerSelect"
+        type: "Select"
     }
 ];

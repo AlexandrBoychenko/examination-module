@@ -1,7 +1,7 @@
 import React from 'react';
 import { setLocalStorage } from '../helpers'
 
-class AnswerSelect extends React.Component {
+class Select extends React.Component {
     constructor(props) {
         super(props);
         this.handleChangeSelect = this.handleChangeSelect.bind(this);
@@ -33,4 +33,4 @@ class AnswerSelect extends React.Component {
     }
 }
 
-export default AnswerSelect;
+export default Select;

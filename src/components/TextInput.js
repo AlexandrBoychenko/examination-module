@@ -1,7 +1,7 @@
 import React from 'react';
 import { setLocalStorage } from '../helpers'
 
-class AnswerTextInput extends React.Component {
+class TextInput extends React.Component {
     constructor(props) {
         super(props);
         this.handleChangeText = this.handleChangeText.bind(this);
@@ -26,4 +26,4 @@ class AnswerTextInput extends React.Component {
     }
 }
 
-export default AnswerTextInput
+export default TextInput
