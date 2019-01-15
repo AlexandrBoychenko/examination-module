@@ -89,20 +89,29 @@ class Questions extends React.Component {
 
     onAnswerChangeSelect(value, id) {
         let answers = this.state.answersSelect.slice();
-        answers.push({id, value});
 
-        answers.forEach((answer, index) => {
-            if (answers[++index] && answer.id === answers[index].id) {
-                answers.splice(--index, 1);
-            }
-        });
+
+        this.removePreviousAnswer(answers, id);
+        answers.push({id, value});
         this.setState({answersSelect: answers});
     }
 
-    toggleModal() {
-        this.setState({
-            isOpen: !this.state.isOpen
+    removePreviousAnswer(answers, currentId) {
+        for(let i = 0; i < answers.length; i++) {
+            if (answers.id === currentId) {
+                answers.splice(0, 1);
+                return
+            }
+        }
+        answers.forEach((answer, index) => {
+            if (answer.id === currentId) {
+                answers.splice(index, 1);
+            }
         });
+    }
+
+    toggleModal() {
+        this.setState({isOpen: !this.state.isOpen});
     };
 
     setStorage() {
@@ -111,7 +120,6 @@ class Questions extends React.Component {
 
     setProps(question) {
         return {
-            key: question.id,
             id: question.id,
             items: question.items,
             right: question.right,
@@ -176,7 +184,6 @@ class Questions extends React.Component {
                     </button>
                 )} />
                 <Route render={({history}) => (
-
                     <Modal show={this.state.isOpen}
                            onClose={this.toggleModal}
                            onSubmit={() => {

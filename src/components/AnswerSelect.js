@@ -8,7 +8,6 @@ class AnswerSelect extends React.Component {
     }
 
     componentDidMount() {
-        this.props.context.onAnswerChangeSelect(this.props.items[0], this.props.id);
         setLocalStorage(this.props.id, this.props.right);
     }
 
@@ -26,6 +25,7 @@ class AnswerSelect extends React.Component {
         return(
             <div className="select-style">
                 <select onChange={this.handleChangeSelect}>
+                    <option value=''>Выберите ответ</option>
                     {this.renderItems()}
                 </select>
             </div>
