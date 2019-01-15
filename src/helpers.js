@@ -27,7 +27,7 @@ const getBooleans = (results) => {
             return item.value === getLocalData(item.id);
         }
     })
-}
+};
 
 const compareTwoArrays = (array01, array02) => {
     return array01.length === array02.length && array01.every((value) =>{
