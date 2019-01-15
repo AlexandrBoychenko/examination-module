@@ -11,21 +11,17 @@ const setLocalStorage = (item, data) => {
 };
 
 const getResultArray = (resultState) => {
-    let answersRadio = getBooleans(resultState.answersRadio);
-    let answersCheckbox = getBooleans(resultState.answersCheckbox);
-    let answersTextInput = getBooleans(resultState.answersTextInput);
-    let answersSelect = getBooleans(resultState.answersSelect);
-
-    return [].concat(answersRadio, answersCheckbox, answersTextInput, answersSelect);
+    let {answersRadio, answersCheckbox, answersTextInput, answersSelect} = resultState;
+    let results = [].concat(answersRadio, answersCheckbox, answersTextInput, answersSelect);
+    return getBooleans(results);
 };
 
 const getBooleans = (results) => {
     return results.map((item) => {
         if (Array.isArray(item.value)) {
             return compareTwoArrays(item.value, getLocalData(item.id))
-        } else {
-            return item.value === getLocalData(item.id);
         }
+        return item.value === getLocalData(item.id);
     })
 };
 
