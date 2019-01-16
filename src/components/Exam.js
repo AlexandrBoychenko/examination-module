@@ -1,22 +1,19 @@
 import React from 'react';
 import Questions from './Questions';
+import ExamTitle from './ExamTitle'
 
 const Exam = () => {
     return (
-        <form className="Exam">
-            <ExamTitle/>
-            <Questions />
-        </form>
-    );
-};
-
-const ExamTitle = () => {
-    return (
-        <div className="titles">
-            <h1>Экзаменационный модуль</h1>
-            <h2>Тема: Астрономия</h2>
+        <div className="exam-wrapper">
+            <form className="Exam">
+                <ExamTitle
+                    title="Экзаменационный модуль"
+                    topic="Астрономия"
+                />
+                <Questions />
+            </form>
         </div>
-    )
+    );
 };
 
 export default Exam;

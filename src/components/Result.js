@@ -1,4 +1,5 @@
 import React from 'react';
+import ExamTitle from './ExamTitle';
 import { questionsNumber, getLocalData, getResultArray } from '../helpers';
 
 class Result extends React.Component {
@@ -18,21 +19,28 @@ class Result extends React.Component {
 
     render() {
         return (
-            <div className="result">
-                <div className="result-text">
-                    <h3>Результат экзамена</h3>
-                    <div className="result-item">Количество правильных ответов: {this.state.examResult}</div>
-                    <div className="result-item">Общее количество вопросов: {questionsNumber}</div>
-                    <div className="result-item">Номер результата: {this.props.match.params.number}</div>
+            <div className="result-wrapper">
+                <ExamTitle
+                    title="Результат экзамена"
+                    topic="Астрономия"
+                />
+                <div className="questions">
+                    <div className="question result-section">
+                        <div className="question-body">
+                            <div className="result-item">Количество правильных ответов: {this.state.examResult}</div>
+                            <div className="result-item">Общее количество вопросов: {questionsNumber}</div>
+                            <div className="result-item">Номер результата: {this.props.match.params.number}</div>
+                        </div>
+                        <button
+                            className="btn btn-result"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                window.history.back();
+                            }}>
+                            Пройти экзамен заново
+                        </button>
+                    </div>
                 </div>
-                <button
-                    className="btn"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        window.history.back();
-                    }}>
-                    Пройти экзамен заново
-                </button>
             </div>
         )
     }

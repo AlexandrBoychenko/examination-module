@@ -3,7 +3,6 @@ import '../style/modal.css'
 
 class Modal extends React.Component {
     render() {
-        // Render nothing if the "show" prop is false
         if(!this.props.show) {
             return null;
         }
@@ -19,7 +18,7 @@ class Modal extends React.Component {
                             Ok
                         </button>
                         <button className="btn btn-inline" onClick={this.props.onClose}>
-                            Close
+                            Закрыть
                         </button>
                     </div>
                 </div>

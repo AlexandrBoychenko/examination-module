@@ -12,7 +12,7 @@ class Questions extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            allAreAnswered: false,
+            id: '',
             isOpen: false,
             Radio: [],
             Checkbox: [],
@@ -161,22 +161,45 @@ class Questions extends React.Component {
         return (results.length < questionsNumber) ? this.toggleModal(): true;
     }
 
+    clearAnswers() {
+        let content = this.state;
+
+        for (let key in content) {
+            if (Array.isArray(content[key])) {
+                content[key] = [];
+            }
+        }
+        this.setState({content});
+
+        document.querySelector('.Exam').reset();
+    }
+
     render() {
         return (
             <div className="questions">
                 {this.renderQuestions()}
-                <Route render={({history}) => (
+                <div className="buttons">
+                    <Route render={({history}) => (
+                        <button
+                            className="btn"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                if (this.handleAnswers()) {
+                                    history.push(this.handleRoute());
+                                }
+                            }}>
+                            Ответить
+                        </button>
+                    )} />
                     <button
                         className="btn"
                         onClick={(e) => {
                             e.preventDefault();
-                            if (this.handleAnswers()) {
-                                history.push(this.handleRoute());
-                            }
+                            this.clearAnswers();
                         }}>
-                        Ответить
+                        Очистить
                     </button>
-                )} />
+                </div>
                 <Route render={({history}) => (
                     <Modal show={this.state.isOpen}
                            onClose={this.toggleModal}
