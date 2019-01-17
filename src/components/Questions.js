@@ -139,13 +139,17 @@ class Questions extends React.Component {
         }
     }
 
+    changeBorder(boolean) {
+        return boolean ? 'green-border' : 'blue-border'
+    }
+
     renderQuestions() {
         return questions.map((item, index) => {
+            let showIsRight = this.showIsRight(item.id);
             return (
-                <div key={item.id} className="question">
+                <div key={item.id} className={`question ${this.changeBorder(showIsRight)}`}>
                     <h3 className="question-title">Вопрос {index + 1}</h3>
-                    <Mark
-                        show={this.showIsRight(item.id)} />
+                    <Mark show={showIsRight} />
                     <h2>{item.value}</h2>
                     <div className="question-body">
                         {this.returnQuestionByType(item)}
@@ -162,13 +166,14 @@ class Questions extends React.Component {
 
     toggleRight(answers, id) {
         let isRight = this.state.isRight.slice();
+        let answerPos = isRight.indexOf(id)
         let currentAnswers = getBooleans(answers);
         currentAnswers.forEach((boolAnswer, index) => {
             if (answers[index].id === id) {
                 if (boolAnswer) {
                     isRight.push(id)
-                } else if (~isRight.indexOf(id)){
-                    isRight.splice(isRight.indexOf(id), 1);
+                } else if (~answerPos){
+                    isRight.splice(answerPos, 1);
                 }
             }
         });
