@@ -89,7 +89,7 @@ class Questions extends React.Component {
     }
 
     handleUserAnswers(answers, id, type) {
-         let sateHandling = new Promise((res, rej) => {
+        let sateHandling = new Promise((res, rej) => {
             this.setState({[type]: answers});
             this.toggleRight(answers, id);
             res();
