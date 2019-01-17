@@ -142,6 +142,10 @@ class Questions extends React.Component {
             return (
                 <div key={item.id} className="question">
                     <h3 className="question-title">Вопрос {index + 1}</h3>
+                    <div className="right-answer">
+                        <div className="right-title">Верно</div>
+                        <img src={require("../img/right.png")} alt="" className="img-right"/>
+                    </div>
                     <h2>{item.value}</h2>
                     <div className="question-body">
                         {this.returnQuestionByType(item)}

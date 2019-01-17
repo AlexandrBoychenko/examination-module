@@ -27,11 +27,16 @@ code {
 }
 
 .question {
+  position: relative;
   margin-top: 1%;
   border: 1px solid #2196F3;
   padding: 3%;
   background: #ffffff;
   border-radius: 5px;
+}
+
+.question h2 {
+  width: 90%;
 }
 
 .buttons {
@@ -98,6 +103,7 @@ input[type="text"] {
 }
 
 .question-title {
+  display: inline-block;
   padding-bottom: 0.5rem;
 }
 
@@ -128,4 +134,27 @@ input[type="text"] {
 
 .result-section {
   padding: 1% 3% 3%;
+}
+
+.right-answer * {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 1rem
+}
+
+.right-answer {
+  position: absolute;
+  right: 1rem;
+  top: 1.5rem;
+}
+
+.img-right {
+  max-height: 3rem;
+  max-width: 3rem;
+}
+
+.right-title {
+  font-weight: bold;
+  font-size: 1rem;
+  color: #008000;
 }
