@@ -29,13 +29,13 @@ class Questions extends React.Component {
     }
 
     setLastId() {
-        let lastId = localStorage.getItem('lastId');
-        if (lastId) {
-            this.setState({id: +lastId + 1});
-            localStorage.setItem('lastId', +lastId + 1);
+        let currentId = localStorage.getItem('currentId');
+        if (currentId) {
+            this.setState({id: +currentId + 1});
+            localStorage.setItem('currentId', +currentId + 1);
         } else {
             this.setState({id: 1});
-            localStorage.setItem('lastId', 1);
+            localStorage.setItem('currentId', 1);
         }
     }
 
