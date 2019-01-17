@@ -4,16 +4,17 @@ import Radio from './Radio';
 import Checkbox from './Checkbox';
 import Select from './Select';
 import TextInput from './TextInput';
+import Mark from './Mark';
 import questions from '../questions';
-import { questionsNumber, getResultArray } from '../helpers';
+import { questionsNumber, getResultArray, getBooleans } from '../helpers';
 import { Route } from 'react-router-dom';
 
 class Questions extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: '',
             isOpen: false,
+            isRight: [],
             Radio: [],
             Checkbox: [],
             TextInput: [],
@@ -37,31 +38,23 @@ class Questions extends React.Component {
         }
     }
 
-    onAnswerChangeRadio(value, id) {
+    onAnswerChangeRadio(value, id, type) {
         if (!isNaN(value)) {
             value = +value;
         }
-
-        let answers = this.state.Radio.slice();
-        if (answers.length) {
-            answers.forEach((item, index) => {
-                if (item.id === id) {
-                    answers.splice(index, 1);
-                }
-            })
-        }
-        answers.push({id, value});
-        this.setState({Radio: answers});
+        let answers = this.state[type].slice();
+        this.removePreviousAnswer(answers, id);
+        this.addNewAnswer(answers, id, value, type)
     }
 
-    onAnswerChangeCheckbox(value, id) {
-        let answers = this.state.Checkbox.slice();
+    onAnswerChangeCheckbox(value, id, type) {
+        let answers = this.state[type].slice();
 
         if (!answers.length) {
             let values = [];
             values.push(value);
             answers.push({id, value: values});
-            this.setState({Checkbox: answers});
+            this.setState({[type]: answers});
         } else {
             answers.forEach((item, index) => {
                 if (item.id === id) {
@@ -77,22 +70,31 @@ class Questions extends React.Component {
                     answers[index].value = elements;
                 }
             });
-            this.setState({Checkbox: answers});
+            this.handleUserAnswers(answers, id, type);
         }
     }
 
-    onAnswerChangeText(value, id) {
-        let answers = this.state.TextInput.slice();
+    onAnswerChangeTextInput(value, id, type) {
+        value = value.toLowerCase();
+        let answers = this.state[type].slice();
         this.removePreviousAnswer(answers, id);
-        answers.push({id, value: value.toLowerCase()});
-        this.setState({TextInput: answers});
+        this.addNewAnswer(answers, id, value, type)
     }
 
-    onAnswerChangeSelect(value, id) {
-        let answers = this.state.Select.slice();
+    onAnswerChangeSelect(value, id, type) {
+        let answers = this.state[type].slice();
         this.removePreviousAnswer(answers, id);
-        answers.push({id, value});
-        this.setState({Select: answers});
+        this.addNewAnswer(answers, id, value, type)
+    }
+
+    handleUserAnswers(answers, id, type) {
+        this.setState({[type]: answers});
+        this.toggleRight(answers, id);
+    }
+
+    addNewAnswer(answers, id, value, type) {
+        answers.push({id, value: value});
+        this.handleUserAnswers(answers, id, type);
     }
 
     removePreviousAnswer(answers, id) {
@@ -142,10 +144,8 @@ class Questions extends React.Component {
             return (
                 <div key={item.id} className="question">
                     <h3 className="question-title">Вопрос {index + 1}</h3>
-                    <div className="right-answer">
-                        <div className="right-title">Верно</div>
-                        <img src={require("../img/right.png")} alt="" className="img-right"/>
-                    </div>
+                    <Mark
+                        show={this.showIsRight(item.id)} />
                     <h2>{item.value}</h2>
                     <div className="question-body">
                         {this.returnQuestionByType(item)}
@@ -153,6 +153,26 @@ class Questions extends React.Component {
                 </div>
             )
         });
+    }
+
+    showIsRight(id) {
+        let rightAnswers = this.state.isRight.slice();
+        return !!(~rightAnswers.indexOf(id));
+    }
+
+    toggleRight(answers, id) {
+        let isRight = this.state.isRight.slice();
+        let currentAnswers = getBooleans(answers);
+        currentAnswers.forEach((boolAnswer, index) => {
+            if (answers[index].id === id) {
+                if (boolAnswer) {
+                    isRight.push(id)
+                } else if (~isRight.indexOf(id)){
+                    isRight.splice(isRight.indexOf(id), 1);
+                }
+            }
+        });
+        this.setState({isRight});
     }
 
     handleRoute() {

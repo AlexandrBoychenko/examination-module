@@ -12,7 +12,7 @@ class Select extends React.Component {
     }
 
     handleChangeSelect(e) {
-        this.props.context.onAnswerChangeSelect(e.target.value, this.props.id)
+        this.props.context.onAnswerChangeSelect(e.target.value, this.props.id, 'Select')
     }
 
     renderItems() {

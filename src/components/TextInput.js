@@ -4,15 +4,15 @@ import { setLocalStorage } from '../helpers'
 class TextInput extends React.Component {
     constructor(props) {
         super(props);
-        this.handleChangeText = this.handleChangeText.bind(this);
+        this.handleChangeTextInput = this.handleChangeTextInput.bind(this);
     }
 
     componentDidMount() {
         setLocalStorage(this.props.id, this.props.right.toLowerCase());
     }
 
-    handleChangeText(e) {
-        this.props.context.onAnswerChangeText(e.target.value, this.props.id)
+    handleChangeTextInput(e) {
+        this.props.context.onAnswerChangeTextInput(e.target.value, this.props.id, 'TextInput')
     };
 
     render() {
@@ -20,7 +20,7 @@ class TextInput extends React.Component {
             <input type="text"
                    name="answer"
                    placeholder="Введите ваш ответ здесь"
-                   onChange={this.handleChangeText}>
+                   onChange={this.handleChangeTextInput}>
             </input>
         )
     }

@@ -32,4 +32,4 @@ const compareTwoArrays = (array01, array02) => {
         )
 };
 
-export {questionsNumber, getLocalData, getResultArray, setLocalStorage};
+export {questionsNumber, getLocalData, getResultArray, setLocalStorage, getBooleans};

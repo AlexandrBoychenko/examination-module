@@ -12,7 +12,7 @@ class Radio extends React.Component {
     }
 
     handleChangeRadio(e) {
-        this.props.context.onAnswerChangeRadio(e.target.value, this.props.id);
+        this.props.context.onAnswerChangeRadio(e.target.value, this.props.id, 'Radio');
     }
     
     renderItems() {
