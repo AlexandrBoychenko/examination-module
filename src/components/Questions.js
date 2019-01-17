@@ -13,6 +13,7 @@ class Questions extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            id: '',
             isOpen: false,
             isRight: [],
             Radio: [],
@@ -44,7 +45,7 @@ class Questions extends React.Component {
         }
         let answers = this.state[type].slice();
         this.removePreviousAnswer(answers, id);
-        this.addNewAnswer(answers, id, value, type)
+        this.addNewAnswer(answers, id, value, type);
     }
 
     onAnswerChangeCheckbox(value, id, type) {
@@ -78,23 +79,31 @@ class Questions extends React.Component {
         value = value.toLowerCase();
         let answers = this.state[type].slice();
         this.removePreviousAnswer(answers, id);
-        this.addNewAnswer(answers, id, value, type)
+        this.addNewAnswer(answers, id, value, type);
     }
 
     onAnswerChangeSelect(value, id, type) {
         let answers = this.state[type].slice();
         this.removePreviousAnswer(answers, id);
-        this.addNewAnswer(answers, id, value, type)
+        this.addNewAnswer(answers, id, value, type);
     }
 
     handleUserAnswers(answers, id, type) {
-        this.setState({[type]: answers});
-        this.toggleRight(answers, id);
+         let sateHandling = new Promise((res, rej) => {
+            this.setState({[type]: answers});
+            this.toggleRight(answers, id);
+            res();
+            rej(new Error('The state is not set'));
+        });
+
+        sateHandling.then(() => {
+            this.setStorage();
+        })
     }
 
     addNewAnswer(answers, id, value, type) {
         answers.push({id, value: value});
-        this.handleUserAnswers(answers, id, type);
+        return this.handleUserAnswers(answers, id, type);
     }
 
     removePreviousAnswer(answers, id) {
@@ -181,7 +190,6 @@ class Questions extends React.Component {
     }
 
     handleRoute() {
-        this.setStorage();
         return `/result/${this.state.id}`;
     };
 
