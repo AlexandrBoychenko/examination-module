@@ -6,7 +6,7 @@ import Select from './Select';
 import TextInput from './TextInput';
 import Mark from './Mark';
 import questions from '../questions';
-import { questionsNumber, getResultArray, getBooleans } from '../helpers';
+import { questionsNumber, getResultArray, getBooleans, getLocalData } from '../helpers';
 import { Route } from 'react-router-dom';
 
 class Questions extends React.Component {
@@ -19,13 +19,27 @@ class Questions extends React.Component {
             Radio: [],
             Checkbox: [],
             TextInput: [],
-            Select: []
+            Select: [],
+            pastValues: {}
         };
         this.toggleModal = this.toggleModal.bind(this);
     }
 
     componentDidMount() {
         this.setLastId();
+    }
+
+    setPropsFromStorage(type) {
+        let answers = this.getPastAnswers();
+        if(answers) {
+            let pastAnswers = {...answers};
+            return pastAnswers[type];
+        }
+    }
+
+    getPastAnswers() {
+        let currentId = getLocalData("currentId");
+        return getLocalData(currentId);
     }
 
     setLastId() {
@@ -128,7 +142,8 @@ class Questions extends React.Component {
             id: question.id,
             items: question.items,
             right: question.right,
-            context: this
+            context: this,
+            pastValues: this.setPropsFromStorage(question.type)
         }
     }
 

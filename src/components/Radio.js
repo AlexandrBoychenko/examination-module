@@ -5,30 +5,50 @@ class Radio extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-          value:''
+            values: []
         };
         this.handleChangeRadio = this.handleChangeRadio.bind(this);
     }
 
     componentDidMount() {
         setLocalStorage(this.props.id, this.props.right);
-        this.setState({value: '7'});
+        this.setPastValueToState();
+        console.log(this.props.pastValues);
+    }
+
+    setPastValueToState() {
+        let pastValue = this.props.pastValues && this.props.pastValues.values;
+        this.setState({values: pastValue})
     }
 
     handleChangeRadio(e) {
+        let pastValues;
+        if (this.state.values) {
+            pastValues = this.state.values.slice();
+            pastValues.forEach((pastValue) => {
+                if (pastValue.id === this.props.id) {
+                    pastValue.value = e.currentTarget.value;
+                }
+            });
+
+        } else {
+            pastValues = e.currentTarget.value;
+        }
+
         this.setState({
-            value: e.currentTarget.value
+            values: pastValues
         });
-        this.props.context.onAnswerChangeRadio(e.target.value, this.props.id, 'Radio');
+
+        this.props.context.onAnswerChangeRadio(e.target.values, this.props.id, 'Radio');
     }
     
     renderItems() {
-        return this.props.items.map((item) => {
-            return this.renderInput(item)
+        return this.props.items.map((item, index) => {
+            return this.renderInput(item, index)
         });
     }
 
-    renderInput(item) {
+    renderInput(item, index) {
         this.className = 'radio-list';
         return (
             <li key={item} >
@@ -37,7 +57,7 @@ class Radio extends React.Component {
                         type="radio"
                         name={this.props.id}
                         value={item}
-                        checked={this.state.value === item.toString()}
+                        checked={item.toString() === this.state && this.state.values[index]}
                         onChange={this.handleChangeRadio}
                     />
                     <span className="check-mark"></span>
