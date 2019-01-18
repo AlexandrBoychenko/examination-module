@@ -36,7 +36,7 @@ class Radio extends React.Component {
 
     compareWithState(item) {
         let values = this.state.values;
-        if (values !== {}) {
+        if (values) {
             return item.toString() === values[this.props.id]
         } else {
             return false
