@@ -35,12 +35,12 @@ class Radio extends React.Component {
     }
 
     compareWithState(item) {
-        let values = this.state.values;
-        if (values) {
-            return item.toString() === values[this.props.id]
-        } else {
-            return false
-        }
+        let values = new Promise((resolve) => {
+           resolve(this.state.values);
+        }) ;
+        return values.then((answers) => {
+            return item.toString() === answers[this.props.id]
+        })
     }
 
     renderInput(item) {
