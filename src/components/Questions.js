@@ -89,16 +89,16 @@ class Questions extends React.Component {
     }
 
     handleUserAnswers(answers, id, type) {
-        let sateHandling = new Promise((res, rej) => {
+        let sateHandling = new Promise((resolve) => {
             this.setState({[type]: answers});
             this.toggleRight(answers, id);
-            res();
-            rej(new Error('The state is not set'));
+            resolve();
+            throw new Error('The state is not set');
         });
 
         sateHandling.then(() => {
             this.setStorage();
-        })
+        }).catch((error) => {return error})
     }
 
     addNewAnswer(answers, id, value, type) {
@@ -109,7 +109,7 @@ class Questions extends React.Component {
     removePreviousAnswer(answers, id) {
         for(let i = 0; i < answers.length; i++) {
             if (answers[i].id === id) {
-                answers.splice(0, 1);
+                answers.splice(i, 1);
                 return
             }
         }
@@ -156,7 +156,7 @@ class Questions extends React.Component {
         return questions.map((item, index) => {
             let showIsRight = this.showIsRight(item.id);
             return (
-                <div key={item.id} className={`question ${this.changeBorder(showIsRight)}`}>
+                <div key={item.id} className={'question ' + this.changeBorder(showIsRight)}>
                     <h3 className="question-title">Вопрос {index + 1}</h3>
                     <Mark show={showIsRight} />
                     <h2>{item.value}</h2>
@@ -175,7 +175,7 @@ class Questions extends React.Component {
 
     toggleRight(answers, id) {
         let isRight = this.state.isRight.slice();
-        let answerPos = isRight.indexOf(id)
+        let answerPos = isRight.indexOf(id);
         let currentAnswers = getBooleans(answers);
         currentAnswers.forEach((boolAnswer, index) => {
             if (answers[index].id === id) {
@@ -189,11 +189,8 @@ class Questions extends React.Component {
         this.setState({isRight});
     }
 
-    handleRoute() {
-        return `/result/${this.state.id}`;
-    };
-
     handleAnswers() {
+        this.setStorage();
         let results = getResultArray(this.state);
         return (results.length < questionsNumber) ? this.toggleModal(): true;
     }
@@ -222,7 +219,7 @@ class Questions extends React.Component {
                             onClick={(e) => {
                                 e.preventDefault();
                                 if (this.handleAnswers()) {
-                                    history.push(this.handleRoute());
+                                    history.push(`/result/${this.state.id}`);
                                 }
                             }}>
                             Ответить
@@ -241,7 +238,7 @@ class Questions extends React.Component {
                     <Modal show={this.state.isOpen}
                            onClose={this.toggleModal}
                            onSubmit={() => {
-                               history.push(this.handleRoute());
+                               history.push(`/result/${this.state.id}`);
                            }}>
                     </Modal>
                 )} />

@@ -16,16 +16,7 @@ class Radio extends React.Component {
     }
     
     renderItems() {
-        let valuesObject = this.getValue();
         return this.props.items.map((item) => {
-            if (valuesObject) {
-                let inputObjects = valuesObject.Radio;
-                for (let i = 0; i < inputObjects.length; i++) {
-                    if (inputObjects[i].id === this.props.id && inputObjects[i].value) {
-                        return this.renderInput(inputObjects[i].value, 'checked')
-                    }
-                }
-            }
             return this.renderInput(item)
         });
     }
@@ -46,11 +37,6 @@ class Radio extends React.Component {
                 </label>
             </li>
         );            
-    }
-
-    getValue() {
-        let currentId = localStorage.getItem('currentId');
-        return JSON.parse(localStorage.getItem(`${+currentId}`));
     }
 
     render() {
