@@ -31,9 +31,13 @@ class Questions extends React.Component {
 
     setPropsFromStorage(type) {
         let answers = this.getPastAnswers();
+        let resultObject = {};
         if(answers) {
             let pastAnswers = {...answers};
-            return pastAnswers[type];
+            pastAnswers[type].forEach((answer) => {
+                resultObject[answer.id] = answer.value;
+            });
+            return resultObject;
         }
     }
 

@@ -5,7 +5,7 @@ class Radio extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            values: []
+            values: {}
         };
         this.handleChangeRadio = this.handleChangeRadio.bind(this);
     }
@@ -13,42 +13,37 @@ class Radio extends React.Component {
     componentDidMount() {
         setLocalStorage(this.props.id, this.props.right);
         this.setPastValueToState();
-        console.log(this.props.pastValues);
+
     }
 
     setPastValueToState() {
-        let pastValue = this.props.pastValues && this.props.pastValues.values;
-        this.setState({values: pastValue})
+        this.setState({values: this.props.pastValues}, () => {
+            console.log(this.state);
+        });
+
     }
 
     handleChangeRadio(e) {
-        let pastValues;
-        if (this.state.values) {
-            pastValues = this.state.values.slice();
-            pastValues.forEach((pastValue) => {
-                if (pastValue.id === this.props.id) {
-                    pastValue.value = e.currentTarget.value;
-                }
-            });
-
-        } else {
-            pastValues = e.currentTarget.value;
-        }
-
-        this.setState({
-            values: pastValues
-        });
-
-        this.props.context.onAnswerChangeRadio(e.target.values, this.props.id, 'Radio');
+        this.setState({...this.state, values: {[this.props.id]: e.target.value}});
+        this.props.context.onAnswerChangeRadio(e.target.value, this.props.id, 'Radio');
     }
     
     renderItems() {
-        return this.props.items.map((item, index) => {
-            return this.renderInput(item, index)
+        return this.props.items.map((item) => {
+            return this.renderInput(item)
         });
     }
 
-    renderInput(item, index) {
+    compareWithState(item) {
+        let values = this.state.values;
+        if (values !== {}) {
+            return item.toString() === values[this.props.id]
+        } else {
+            return false
+        }
+    }
+
+    renderInput(item) {
         this.className = 'radio-list';
         return (
             <li key={item} >
@@ -57,7 +52,7 @@ class Radio extends React.Component {
                         type="radio"
                         name={this.props.id}
                         value={item}
-                        checked={item.toString() === this.state && this.state.values[index]}
+                        checked={this.compareWithState(item)}
                         onChange={this.handleChangeRadio}
                     />
                     <span className="check-mark"></span>
