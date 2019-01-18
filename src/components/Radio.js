@@ -4,14 +4,21 @@ import { setLocalStorage } from '../helpers'
 class Radio extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+          value:''
+        };
         this.handleChangeRadio = this.handleChangeRadio.bind(this);
     }
 
     componentDidMount() {
         setLocalStorage(this.props.id, this.props.right);
+        this.setState({value: '7'});
     }
 
     handleChangeRadio(e) {
+        this.setState({
+            value: e.currentTarget.value
+        });
         this.props.context.onAnswerChangeRadio(e.target.value, this.props.id, 'Radio');
     }
     
@@ -21,7 +28,7 @@ class Radio extends React.Component {
         });
     }
 
-    renderInput(item, checked) {
+    renderInput(item) {
         this.className = 'radio-list';
         return (
             <li key={item} >
@@ -30,7 +37,7 @@ class Radio extends React.Component {
                         type="radio"
                         name={this.props.id}
                         value={item}
-                        checked={checked}
+                        checked={this.state.value === item.toString()}
                         onChange={this.handleChangeRadio}
                     />
                     <span className="check-mark"></span>
