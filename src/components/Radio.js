@@ -5,26 +5,19 @@ class Radio extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            values: {}
+            checked: false
         };
         this.handleChangeRadio = this.handleChangeRadio.bind(this);
     }
 
     componentDidMount() {
         setLocalStorage(this.props.id, this.props.right);
-        this.setPastValueToState();
-
-    }
-
-    setPastValueToState() {
-        this.setState({values: this.props.pastValues}, () => {
-            console.log(this.state);
-        });
+        this.compareWithState();
 
     }
 
     handleChangeRadio(e) {
-        this.setState({...this.state, values: {[this.props.id]: e.target.value}});
+        this.setState({checked: e.target.value});
         this.props.context.onAnswerChangeRadio(e.target.value, this.props.id, 'Radio');
     }
     
@@ -34,12 +27,11 @@ class Radio extends React.Component {
         });
     }
 
-    compareWithState(item) {
-        let values = new Promise((resolve) => {
-           resolve(this.state.values);
-        }) ;
-        return values.then((answers) => {
-            return item.toString() === answers[this.props.id]
+    compareWithState() {
+        this.props.items.forEach((item) => {
+            if (this.props.pastValues && this.props.pastValues[this.props.id] === item) {
+                this.setState({checked: item.toString()});
+            }
         })
     }
 
@@ -52,7 +44,7 @@ class Radio extends React.Component {
                         type="radio"
                         name={this.props.id}
                         value={item}
-                        checked={this.compareWithState(item)}
+                        checked={item.toString() === this.state.checked}
                         onChange={this.handleChangeRadio}
                     />
                     <span className="check-mark"></span>

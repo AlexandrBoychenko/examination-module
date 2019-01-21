@@ -13,14 +13,14 @@ class Questions extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: '',
+            id: 1,
             isOpen: false,
             isRight: [],
+            pastValues: {},
             Radio: [],
             Checkbox: [],
             TextInput: [],
-            Select: [],
-            pastValues: {}
+            Select: []
         };
         this.toggleModal = this.toggleModal.bind(this);
     }
@@ -29,8 +29,31 @@ class Questions extends React.Component {
         this.setLastId();
     }
 
+    loadPreviousState() {
+        console.log(this.state.id);
+        let prevState = getLocalData(this.state.id);
+        if (prevState) {
+            this.setState({...this.state,
+                Radio: prevState['Radio'],
+                Checkbox: prevState['Checkbox'],
+                TextInput: prevState['TextInput'],
+                Select: prevState['Select']
+            });
+        }
+    }
+
+    setLastId() {
+        let currentId = localStorage.getItem('currentId');
+        if (!currentId) {
+            localStorage.setItem('currentId', this.state.id);
+        } else {
+            this.setState({id: currentId}, this.loadPreviousState);
+        }
+    }
+
     setPropsFromStorage(type) {
-        let answers = this.getPastAnswers();
+        let pastId = getLocalData("currentId");
+        let answers = getLocalData(pastId);
         let resultObject = {};
         if(answers) {
             let pastAnswers = {...answers};
@@ -41,20 +64,12 @@ class Questions extends React.Component {
         }
     }
 
-    getPastAnswers() {
-        let currentId = getLocalData("currentId");
-        return getLocalData(currentId);
-    }
-
-    setLastId() {
-        let currentId = localStorage.getItem('currentId');
-        if (currentId) {
-            this.setState({id: +currentId + 1});
-            localStorage.setItem('currentId', +currentId + 1);
-        } else {
-            this.setState({id: 1});
-            localStorage.setItem('currentId', 1);
-        }
+    changeLastId() {
+        let currentId = this.state.id;
+        let nextId;
+        nextId = +currentId + 1;
+        localStorage.setItem('currentId', nextId);
+        this.setState({id: nextId});
     }
 
     onAnswerChangeRadio(value, id, type) {
@@ -138,7 +153,7 @@ class Questions extends React.Component {
     };
 
     setStorage() {
-        localStorage.setItem(this.state.id, JSON.stringify(this.state));
+        localStorage.setItem(this.state.id + '', JSON.stringify(this.state));
     }
 
     setProps(question) {
@@ -209,21 +224,14 @@ class Questions extends React.Component {
     }
 
     handleAnswers() {
+        this.changeLastId();
         this.setStorage();
         let results = getResultArray(this.state);
         return (results.length < questionsNumber) ? this.toggleModal(): true;
     }
 
     clearAnswers() {
-        let content = this.state;
-
-        for (let key in content) {
-            if (Array.isArray(content[key])) {
-                content[key] = [];
-            }
-        }
-        this.setState({content});
-
+        localStorage.setItem(this.state.id + '', null);
         document.querySelector('.Exam').reset();
     }
 
@@ -238,7 +246,7 @@ class Questions extends React.Component {
                             onClick={(e) => {
                                 e.preventDefault();
                                 if (this.handleAnswers()) {
-                                    history.push(`/result/${this.state.id}`);
+                                    history.push(`/result/${+this.state.id - 1}`);
                                 }
                             }}>
                             Ответить
@@ -257,7 +265,7 @@ class Questions extends React.Component {
                     <Modal show={this.state.isOpen}
                            onClose={this.toggleModal}
                            onSubmit={() => {
-                               history.push(`/result/${this.state.id}`);
+                               history.push(`/result/${+this.state.id - 1}`);
                            }}>
                     </Modal>
                 )} />
