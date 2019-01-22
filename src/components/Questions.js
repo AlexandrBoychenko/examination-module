@@ -31,7 +31,6 @@ class Questions extends React.Component {
     }
 
     loadPreviousState() {
-        console.log(this.state.id);
         let prevState = getLocalData(this.state.id);
         if (prevState) {
             this.setState({...this.state,

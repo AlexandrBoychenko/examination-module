@@ -13,7 +13,6 @@ class Radio extends React.Component {
     componentDidMount() {
         setLocalStorage(this.props.id, this.props.right);
         this.compareWithState();
-
     }
 
     handleChangeRadio(e) {
