@@ -27,6 +27,7 @@ class Questions extends React.Component {
 
     componentDidMount() {
         this.setLastId();
+        this.setMarkForRight();
     }
 
     loadPreviousState() {
@@ -52,16 +53,30 @@ class Questions extends React.Component {
     }
 
     setPropsFromStorage(type) {
-        let pastId = getLocalData("currentId");
-        let answers = getLocalData(pastId);
+        let answers = this.getPastAnswers();
         let resultObject = {};
         if(answers) {
-            let pastAnswers = {...answers};
-            pastAnswers[type].forEach((answer) => {
+            answers[type].forEach((answer) => {
                 resultObject[answer.id] = answer.value;
             });
-            return resultObject;
+        return resultObject;
         }
+    }
+
+    setMarkForRight() {
+        let pastAnswers = this.getPastAnswers();
+        for (let key in pastAnswers) {
+            if (Array.isArray(pastAnswers[key]) && key !== 'isRight') {
+                pastAnswers[key].forEach((answer) => {
+                    setTimeout(() => {this.toggleRight(pastAnswers[key], answer.id)}, 0);
+                })
+            }
+        }
+    }
+
+    getPastAnswers() {
+        let pastId = getLocalData("currentId");
+        return getLocalData(pastId);
     }
 
     changeLastId() {
