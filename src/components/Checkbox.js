@@ -1,5 +1,5 @@
 import React from 'react';
-import { setLocalStorage } from '../helpers'
+import { setLocalStorage, returnCurrentValue } from '../helpers'
 
 class Checkbox extends React.Component {
     constructor(props) {
@@ -48,6 +48,10 @@ class Checkbox extends React.Component {
         this.setState({checked: arrayForChecked});
     }
 
+    isItemChecked(item) {
+        return ~this.state.checked.indexOf(item.toString())
+    }
+
     renderInput(item) {
         this.className = 'checkbox-list';
         return (
@@ -55,7 +59,7 @@ class Checkbox extends React.Component {
                 <label className="container container-checkbox">{item}
                     <input type="checkbox" name="answer" value={item}
                        onChange={this.handleChangeCheckbox}
-                       checked={~this.state.checked.indexOf(item.toString())}
+                       checked={returnCurrentValue(this.props.parentState.length, this.isItemChecked(item))}
                     />
                     <span className="check-mark-checkbox"></span>
                 </label>

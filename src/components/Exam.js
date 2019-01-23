@@ -5,7 +5,7 @@ import ExamTitle from './ExamTitle'
 const Exam = () => {
     return (
         <div className="exam-wrapper">
-            <form className="Exam">
+            <form className="exam">
                 <ExamTitle
                     title="Экзаменационный модуль"
                     topic="Астрономия"

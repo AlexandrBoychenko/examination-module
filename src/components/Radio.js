@@ -1,5 +1,5 @@
 import React from 'react';
-import { setLocalStorage } from '../helpers'
+import { setLocalStorage, returnCurrentValue } from '../helpers'
 
 class Radio extends React.Component {
     constructor(props) {
@@ -43,7 +43,7 @@ class Radio extends React.Component {
                         type="radio"
                         name={this.props.id}
                         value={item}
-                        checked={item.toString() === this.state.checked}
+                        checked={returnCurrentValue(this.props.parentState.length, (item.toString() === this.state.checked))}
                         onChange={this.handleChangeRadio}
                     />
                     <span className="check-mark"></span>

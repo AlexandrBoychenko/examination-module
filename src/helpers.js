@@ -32,4 +32,12 @@ const compareTwoArrays = (array01, array02) => {
         )
 };
 
-export {questionsNumber, getLocalData, getResultArray, setLocalStorage, getBooleans};
+const returnCurrentValue = (boolean, value) => {
+    let resultValue = '';
+    if (typeof value === 'boolean' ) {
+        resultValue = false;
+    }
+    return boolean ? value : resultValue
+};
+
+export {questionsNumber, getLocalData, getResultArray, setLocalStorage, getBooleans, returnCurrentValue};

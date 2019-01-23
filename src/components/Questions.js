@@ -22,6 +22,7 @@ class Questions extends React.Component {
             TextInput: [],
             Select: []
         };
+        this.baseState = this.state;
         this.toggleModal = this.toggleModal.bind(this);
     }
 
@@ -176,12 +177,13 @@ class Questions extends React.Component {
             items: question.items,
             right: question.right,
             context: this,
-            pastValues: this.setPropsFromStorage(question.type)
+            pastValues: this.setPropsFromStorage(question.type),
+            parentState: this.state[question.type]
         }
     }
 
     returnQuestionByType(question) {
-        let props = this.setProps(question);
+        const props = this.setProps(question);
         switch (question.type) {
             case 'Radio':
                 return <Radio {...props} />;
@@ -246,7 +248,10 @@ class Questions extends React.Component {
 
     clearAnswers() {
         localStorage.setItem(this.state.id + '', null);
-        document.querySelector('.Exam').reset();
+        this.setState(this.baseState, () => {
+            document.querySelector('.exam').reset();
+        });
+
     }
 
     render() {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { setLocalStorage } from '../helpers'
+import { setLocalStorage, returnCurrentValue } from '../helpers'
 
 class Select extends React.Component {
     constructor(props) {
@@ -42,7 +42,7 @@ class Select extends React.Component {
         return(
             <div className="select-style">
                 <select
-                    value={this.state.selected}
+                    value={returnCurrentValue(this.props.parentState.length, this.state.selected)}
                     onChange={this.handleChangeSelect}>
                     <option value=''>Выберите ответ</option>
                     {this.renderItems()}

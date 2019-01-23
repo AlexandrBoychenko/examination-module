@@ -1,5 +1,5 @@
 import React from 'react';
-import { setLocalStorage } from '../helpers'
+import { setLocalStorage, returnCurrentValue } from '../helpers'
 
 class TextInput extends React.Component {
     constructor(props) {
@@ -34,9 +34,9 @@ class TextInput extends React.Component {
             <input type="text"
                    name="answer"
                    placeholder="Введите ваш ответ здесь"
-                   value={this.state.value}
-                   onChange={this.handleChangeTextInput}>
-            </input>
+                   value={returnCurrentValue(this.props.parentState.length, this.state.value)}
+                   onChange={this.handleChangeTextInput}
+            />
         )
     }
 }
