@@ -24,8 +24,7 @@ class Checkbox extends React.Component {
             } else {
                 currentValues.push(e.target.value);
             }
-        }
-        if (!Object.keys(this.props.pastValues).length ) {
+        } else {
             if (currentValues.length > 1) {
                 currentValues = [e.target.value];
             } else {
