@@ -16,7 +16,6 @@ class Questions extends React.Component {
             id: 1,
             isOpen: false,
             isRight: [],
-            pastValues: {},
             Radio: [],
             Checkbox: [],
             TextInput: [],
@@ -54,13 +53,17 @@ class Questions extends React.Component {
 
     setPropsFromStorage(type) {
         let answers = this.getPastAnswers();
+        return this.getObjectFromArray(answers, type);
+    }
+
+    getObjectFromArray(answers, type) {
         let resultObject = {};
         if(answers) {
             answers[type].forEach((answer) => {
                 resultObject[answer.id] = answer.value;
             });
-        return resultObject;
         }
+        return resultObject;
     }
 
     setMarkForRight() {
@@ -178,7 +181,7 @@ class Questions extends React.Component {
             right: question.right,
             context: this,
             pastValues: this.setPropsFromStorage(question.type),
-            parentState: this.state[question.type]
+            parentState: this.getObjectFromArray(this.state, question.type)
         }
     }
 
@@ -248,7 +251,7 @@ class Questions extends React.Component {
 
     clearAnswers() {
         localStorage.setItem(this.state.id + '', null);
-        this.setState(this.baseState, () => {
+        this.setState({...this.baseState, id: this.state.id}, () => {
             document.querySelector('.exam').reset();
         });
 

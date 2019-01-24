@@ -42,7 +42,7 @@ class Select extends React.Component {
         return(
             <div className="select-style">
                 <select
-                    value={returnCurrentValue(this.props.parentState.length, this.state.selected)}
+                    value={returnCurrentValue(this.props.parentState.hasOwnProperty(this.props.id), this.state.selected)}
                     onChange={this.handleChangeSelect}>
                     <option value=''>Выберите ответ</option>
                     {this.renderItems()}
