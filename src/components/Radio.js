@@ -16,20 +16,10 @@ class Radio extends React.Component {
         this.compareWithState();
     }
 
-    /*componentDidUpdate() {
-        if (!this.state.isClicked && this.state.checked) {
-            this.setState({checked: false});
-        }
-    }*/
-
     handleChangeRadio(e) {
         this.setState({checked: e.target.value});
         this.props.context.onAnswerChangeRadio(e.target.value, this.props.id, 'Radio');
     }
-
-    /*handleClick() {
-        this.setState({isClicked: true});
-    }*/
 
     renderItems() {
         return this.props.items.map((item) => {
@@ -54,7 +44,7 @@ class Radio extends React.Component {
                         type="radio"
                         name={this.props.id}
                         value={item}
-                        checked={this.props.parentState.hasOwnProperty(this.props.id) && item.toString() === this.state.checked}
+                        checked={returnCurrentValue(this.props, (item.toString() === this.state.checked))}
                         onChange={this.handleChangeRadio}
                     />
                     <span className="check-mark"></span>

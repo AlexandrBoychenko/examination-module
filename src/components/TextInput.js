@@ -34,7 +34,7 @@ class TextInput extends React.Component {
             <input type="text"
                    name="answer"
                    placeholder="Введите ваш ответ здесь"
-                   value={returnCurrentValue(this.props.parentState.hasOwnProperty(this.props.id), this.state.value)}
+                   value={returnCurrentValue(this.props, this.state.value)}
                    onChange={this.handleChangeTextInput}
             />
         )

@@ -122,8 +122,8 @@ class Questions extends React.Component {
                     answers[index].value = elements;
                 }
             });
-            this.handleUserAnswers(answers, id, type);
         }
+        this.handleUserAnswers(answers, id, type);
     }
 
     onAnswerChangeTextInput(value, id, type) {
@@ -140,14 +140,13 @@ class Questions extends React.Component {
     }
 
     handleUserAnswers(answers, id, type) {
-        let sateHandling = new Promise((resolve) => {
+        let setHandling = new Promise((resolve) => {
             this.setState({[type]: answers});
             this.toggleRight(answers, id);
             resolve();
-            throw new Error('The state is not set');
         });
 
-        sateHandling.then(() => {
+        setHandling.then(() => {
             this.setStorage();
         }).catch((error) => {return error})
     }
@@ -268,7 +267,7 @@ class Questions extends React.Component {
                             onClick={(e) => {
                                 e.preventDefault();
                                 if (this.handleAnswers()) {
-                                    history.push(`/result/${+this.state.id - 1}`);
+                                    history.push(`/result/${+this.state.id}`);
                                 }
                             }}>
                             Ответить

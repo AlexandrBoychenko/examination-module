@@ -28,16 +28,13 @@ const getBooleans = (results) => {
 const compareTwoArrays = (array01, array02) => {
     return array01.length === array02.length && array01.every((value) =>{
                 return ~array02.indexOf(value);
-            }
-        )
+    })
 };
 
-const returnCurrentValue = (boolean, value) => {
-    let resultValue = '';
-    if (typeof value === 'boolean' ) {
-        resultValue = false;
-    }
-    return boolean ? value : resultValue
+const returnCurrentValue = (props, value) => {
+    const itHasProperty = props.parentState.hasOwnProperty(props.id);
+    const resultValue = (typeof value === 'boolean') ? false : '';
+    return itHasProperty ? value : resultValue;
 };
 
 export {questionsNumber, getLocalData, getResultArray, setLocalStorage, getBooleans, returnCurrentValue};
