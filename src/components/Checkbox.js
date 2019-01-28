@@ -24,7 +24,7 @@ class Checkbox extends React.Component {
     displayUserChoice(target) {
         let currentValues = this.state.checked.slice();
         let targetPos = currentValues.indexOf(target);
-        let isItHasPastValues = Object.keys(this.props.pastValues).length
+        let isItHasPastValues = Object.keys(this.props.pastValues).length;
 
         if (isItHasPastValues) {
             currentValues = this.handleCheckboxes(currentValues, target, (targetPos !== -1), targetPos);
