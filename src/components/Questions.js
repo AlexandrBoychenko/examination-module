@@ -101,8 +101,9 @@ class Questions extends React.Component {
 
     onAnswerChangeCheckbox(value, id, type) {
         let answers = this.state[type].slice();
+        let answersObject = this.getObjectFromArray(this.state, type);
 
-        if (!answers.length) {
+        if (!(id in answersObject)) {
             let values = [];
             values.push(value);
             answers.push({id, value: values});
