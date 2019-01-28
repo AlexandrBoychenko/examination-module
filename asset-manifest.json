@@ -1,7 +1,7 @@
 {
   "main.css": "/examination-module/static/css/main.8ce45efc.chunk.css",
-  "main.js": "/examination-module/static/js/main.8cb50412.chunk.js",
-  "main.js.map": "/examination-module/static/js/main.8cb50412.chunk.js.map",
+  "main.js": "/examination-module/static/js/main.a8ce6820.chunk.js",
+  "main.js.map": "/examination-module/static/js/main.a8ce6820.chunk.js.map",
   "static/js/1.d9103423.chunk.js": "/examination-module/static/js/1.d9103423.chunk.js",
   "static/js/1.d9103423.chunk.js.map": "/examination-module/static/js/1.d9103423.chunk.js.map",
   "runtime~main.js": "/examination-module/static/js/runtime~main.3672f08c.js",
@@ -9,6 +9,6 @@
   "static/media/index.css": "/examination-module/static/media/background-default.6790fe66.jpg",
   "static/css/main.8ce45efc.chunk.css.map": "/examination-module/static/css/main.8ce45efc.chunk.css.map",
   "index.html": "/examination-module/index.html",
-  "precache-manifest.766387ee520bc8d2dd3d2776ca9ba460.js": "/examination-module/precache-manifest.766387ee520bc8d2dd3d2776ca9ba460.js",
+  "precache-manifest.9a8d3f3f22a1fd7c747aa769633e22a3.js": "/examination-module/precache-manifest.9a8d3f3f22a1fd7c747aa769633e22a3.js",
   "service-worker.js": "/examination-module/service-worker.js"
 }
