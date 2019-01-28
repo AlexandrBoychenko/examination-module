@@ -103,28 +103,34 @@ class Questions extends React.Component {
         let answers = this.state[type].slice();
         let answersObject = this.getObjectFromArray(this.state, type);
 
-        if (!(id in answersObject)) {
-            let values = [];
-            values.push(value);
-            answers.push({id, value: values});
-            this.setState({[type]: answers});
+        if (!(id in answersObject) ) {
+            this.handleNewCheckboxId(answers, value, id, type);
         } else {
-            answers.forEach((item, index) => {
-                if (item.id === id) {
-                    let elements = item.value.slice();
-
-                    if (!~elements.indexOf(value)) {
-                        elements.push(value);
-
-                    } else {
-                        let valueIndex = elements.indexOf(value);
-                        elements.splice(valueIndex, 1);
-                    }
-                    answers[index].value = elements;
-                }
-            });
+            answers = this.handleCheckboxValues(answers, value, id);
         }
         this.handleUserAnswers(answers, id, type);
+    }
+
+    handleNewCheckboxId(answers, value, id, type) {
+        let values = [];
+        values.push(value);
+        answers.push({id, value: values});
+        this.setState({[type]: answers});
+    }
+
+    handleCheckboxValues(answers, value, id) {
+        answers.forEach((item, index) => {
+            let clickedElements = item.value.slice();
+            if (item.id === id) {
+                if (!~clickedElements.indexOf(value)) {
+                    clickedElements.push(value);
+                } else {
+                    clickedElements.splice(clickedElements.indexOf(value), 1);
+                }
+                answers[index].value = clickedElements;
+            }
+        });
+        return answers;
     }
 
     onAnswerChangeTextInput(value, id, type) {
