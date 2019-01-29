@@ -1,0 +1,216 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`It should be render correctly 1`] = `
+<ul>
+  <li>
+    <label
+      className="container"
+    >
+      7
+      <input
+        checked={false}
+        name="question01"
+        onChange={[Function]}
+        type="radio"
+        value={7}
+      />
+      <span
+        className="check-mark"
+      />
+    </label>
+  </li>
+  <li>
+    <label
+      className="container"
+    >
+      5
+      <input
+        checked={false}
+        name="question01"
+        onChange={[Function]}
+        type="radio"
+        value={5}
+      />
+      <span
+        className="check-mark"
+      />
+    </label>
+  </li>
+  <li>
+    <label
+      className="container"
+    >
+      9
+      <input
+        checked={false}
+        name="question01"
+        onChange={[Function]}
+        type="radio"
+        value={9}
+      />
+      <span
+        className="check-mark"
+      />
+    </label>
+  </li>
+  <li>
+    <label
+      className="container"
+    >
+      8
+      <input
+        checked={false}
+        name="question01"
+        onChange={[Function]}
+        type="radio"
+        value={8}
+      />
+      <span
+        className="check-mark"
+      />
+    </label>
+  </li>
+</ul>
+`;
+
+exports[`It should be render correctly 2`] = `
+<ul>
+  <li>
+    <label
+      className="container container-checkbox"
+    >
+      Имеет хвост
+      <input
+        checked=""
+        name="answer"
+        onChange={[Function]}
+        type="checkbox"
+        value="Имеет хвост"
+      />
+      <span
+        className="check-mark-checkbox"
+      />
+    </label>
+  </li>
+  <li>
+    <label
+      className="container container-checkbox"
+    >
+      Вращается вокруг солнца
+      <input
+        checked=""
+        name="answer"
+        onChange={[Function]}
+        type="checkbox"
+        value="Вращается вокруг солнца"
+      />
+      <span
+        className="check-mark-checkbox"
+      />
+    </label>
+  </li>
+  <li>
+    <label
+      className="container container-checkbox"
+    >
+      Состоит из газа и пыли
+      <input
+        checked=""
+        name="answer"
+        onChange={[Function]}
+        type="checkbox"
+        value="Состоит из газа и пыли"
+      />
+      <span
+        className="check-mark-checkbox"
+      />
+    </label>
+  </li>
+  <li>
+    <label
+      className="container container-checkbox"
+    >
+      Существует только во внутренней области солнечной системы
+      <input
+        checked=""
+        name="answer"
+        onChange={[Function]}
+        type="checkbox"
+        value="Существует только во внутренней области солнечной системы"
+      />
+      <span
+        className="check-mark-checkbox"
+      />
+    </label>
+  </li>
+  <li>
+    <label
+      className="container container-checkbox"
+    >
+      Не имеет ядра
+      <input
+        checked=""
+        name="answer"
+        onChange={[Function]}
+        type="checkbox"
+        value="Не имеет ядра"
+      />
+      <span
+        className="check-mark-checkbox"
+      />
+    </label>
+  </li>
+</ul>
+`;
+
+exports[`It should be render correctly 3`] = `
+<input
+  name="answer"
+  onChange={[Function]}
+  placeholder="Введите ваш ответ здесь"
+  type="text"
+  value=""
+/>
+`;
+
+exports[`It should be render correctly 4`] = `
+<div
+  className="select-style"
+>
+  <select
+    onChange={[Function]}
+    value={false}
+  >
+    <option
+      value=""
+    >
+      Выберите ответ
+    </option>
+    <option
+      value="Ганимед"
+    >
+      Ганимед
+    </option>
+    <option
+      value="Луна"
+    >
+      Луна
+    </option>
+    <option
+      value="Фобос"
+    >
+      Фобос
+    </option>
+    <option
+      value="Титан"
+    >
+      Титан
+    </option>
+    <option
+      value="Европа"
+    >
+      Европа
+    </option>
+  </select>
+</div>
+`;
