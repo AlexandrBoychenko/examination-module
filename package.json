@@ -3,26 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "babel-jest": "^24.0.0",
-    "babel-plugin-syntax-class-properties": "^6.13.0",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-plugin-transform-export-extensions": "^6.22.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
-    "es-to-primitive": "^1.2.0",
-    "jest": "^24.0.0",
-    "prop-types": "^15.6.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-router-dom": "latest",
-    "react-scripts": "^2.1.3",
-    "react-test-renderer": "^16.7.0"
+    "react-scripts": "^2.1.3"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "jest",
-    "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
@@ -37,7 +25,6 @@
   ],
   "homepage": "https://alexandrboychenko.github.io/examination-module",
   "devDependencies": {
-    "babel-preset-stage-2": "^6.24.1",
     "gh-pages": "^2.0.1"
   }
 }
