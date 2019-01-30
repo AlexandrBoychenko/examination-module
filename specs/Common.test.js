@@ -6,16 +6,6 @@ import Select from '../src/Components/Select';
 import renderer from 'react-test-renderer';
 import questions from '../src/questions';
 
-test('It should be render correctly', () => {
-    const types = ['Radio', 'Checkbox', 'TextInput', 'Select'];
-    types.forEach((questionTypes) => {
-        const component = renderer.create(
-            getComponentExpression(questionTypes)
-        );
-        let tree = component.toJSON();
-        expect(tree).toMatchSnapshot();
-    })
-});
 
 const getComponentExpression = (questionType) => {
     let pastValues;
@@ -42,4 +32,16 @@ const setProps = (props) => {
         default: return null
     }
 };
+
+const types = ['Radio', 'Checkbox', 'TextInput', 'Select'];
+
+test('It should be render correctly', () => {
+    types.forEach((questionTypes) => {
+        const component = renderer.create(
+            getComponentExpression(questionTypes)
+        );
+        let tree = component.toJSON();
+        expect(tree).toMatchSnapshot();
+    })
+});
 
