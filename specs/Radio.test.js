@@ -2,7 +2,7 @@ import React from 'react';
 import Radio from '../src/Components/Radio';
 import renderer from 'react-test-renderer';
 import questions from '../src/questions';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 
 
 /*test('It should have all properties', () => {
@@ -20,15 +20,12 @@ import { shallow } from 'enzyme';
 });*/
 
 test("check the onChange callback", () => {
-    const onChange = jest.fn(),
-    props = {
-        ...testRadioProps,
-        onChange
-    },
-    RadioInputComponent = shallow(<Radio {...props} />).find("input");
-    let firstRadioInput = RadioInputComponent.first();
-    firstRadioInput.simulate("click");
-    expect(firstRadioInput.find("[checked]").exists()).toEqual(true);
+    const wrapper = mount(<Radio {...testRadioProps} />);
+
+    const RadioInputComponent = wrapper.find("input").first();
+    RadioInputComponent.simulate("change", {target: {
+        value: '7'}});
+    expect(RadioInputComponent.props().checked).toBe(true);
 });
 
 const testRadioProps = {
