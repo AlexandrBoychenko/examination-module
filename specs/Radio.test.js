@@ -1,32 +1,31 @@
 import React from 'react';
 import Radio from '../src/Components/Radio';
-import renderer from 'react-test-renderer';
-import questions from '../src/questions';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 
 
-/*test('It should have all properties', () => {
-    questions.forEach((question) => {
-        if (question.type === 'Radio') {
-            expect(question).toMatchSnapshot({
-                id: expect.any(String),
-                value: expect.any(String),
-                items: expect.any(Array),
-                right: expect.anything(),
-                type: expect.stringMatching('Radio')
-            });
-        }
-    })
-});*/
+test('it should have correct props types for input', () => {
+    const wrapper = mount(<Radio {...testRadioProps} />);
+    const RadioProps = wrapper.find("input").first().props();
+
+    expect(RadioProps.type).toEqual('radio');
+    expect(RadioProps.name).toEqual(wrapper.props().id);
+    expect(RadioProps.value).toEqual(expect.any(Number || String));
+    expect(RadioProps.checked).toEqual(false);
+    expect(RadioProps.onChange).toEqual(expect.any(Function));
+});
 
 test("check the onChange callback", () => {
-    const wrapper = mount(<Radio {...testRadioProps} />);
-
+    const onChange = jest.fn(),
+        props = {
+            ...testRadioProps,
+            onChange
+        };
+    const wrapper = mount(<Radio {...props} />);
     const RadioInputComponent = wrapper.find("input").first();
-    RadioInputComponent.simulate("change", {target: {
-        value: '7'}});
-    expect(RadioInputComponent.props().checked).toBe(true);
+    RadioInputComponent.simulate("change", {target: {"value": props.items[0]}});
+    expect(wrapper.state().checked).toBe(RadioInputComponent.props().value);
 });
+
 
 const testRadioProps = {
     id: "question01",
