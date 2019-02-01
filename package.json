@@ -6,6 +6,8 @@
     "enzyme": "^3.8.0",
     "enzyme-adapter-react-16": "^1.8.0",
     "install": "^0.12.2",
+    "jest-transform-css": "^2.0.0",
+    "prop-types": "^15.6.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-router-dom": "latest",
@@ -19,11 +21,15 @@
     "test": "jest",
     "test:debug": "react-scripts --inspect-brk test --runInBand"
   },
-
   "jest": {
-    "setupFilesAfterEnv": ["./testConfig.js"]
+    "setupFilesAfterEnv": [
+      "./testConfig.js"
+    ],
+    "transform": {
+      "^.+\\.js$": "babel-jest",
+      ".+\\.(css|style|less|sass|scss)$": "jest-transform-css"
+    }
   },
-
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -37,9 +43,9 @@
   "devDependencies": {
     "@babel/preset-env": "latest",
     "@babel/preset-react": "latest",
-    "babel-jest": "24.0.0",
+    "babel-jest": "latest",
     "gh-pages": "^2.0.1",
-    "jest": "24.0.0",
+    "jest": "latest",
     "react-test-renderer": "^16.7.0"
   }
 }
