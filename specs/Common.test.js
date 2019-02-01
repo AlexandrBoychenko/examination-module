@@ -8,9 +8,10 @@ import questions from '../src/questions';
 
 
 const getComponentExpression = (questionType) => {
-    let pastValues;
-    let parentState = pastValues = {};
-    let prevTypes = [];
+    let pastValues = {},
+        parentState = {},
+        prevTypes = [];
+
     for (let i = 0; i <= questions.length; i++) {
         if (questions[i].type === questionType) {
             prevTypes.push(questions[i].type);
@@ -40,8 +41,8 @@ test('It should be render correctly', () => {
         const component = renderer.create(
             getComponentExpression(questionTypes)
         );
-        let tree = component.toJSON();
-        expect(tree).toMatchSnapshot();
+        let treeHTML = component.toJSON();
+        expect(treeHTML).toMatchSnapshot();
     })
 });
 

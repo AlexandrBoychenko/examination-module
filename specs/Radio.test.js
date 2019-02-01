@@ -1,9 +1,16 @@
 import React from 'react';
 import Radio from '../src/Components/Radio';
+import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
 
 
-test('it should have correct props types for input', () => {
+test('It should be render correctly', () => {
+    const component = renderer.create(<Radio {...testRadioProps} />);
+    let treeHTML = component.toJSON();
+    expect(treeHTML).toMatchSnapshot();
+});
+
+test('it should have correct props types for each input', () => {
     const wrapper = mount(<Radio {...testRadioProps} />);
     const RadioProps = wrapper.find("input").first().props();
 
