@@ -74,9 +74,12 @@ class Checkbox extends React.Component {
         return (
             <li key={item}>
                 <label className="container container-checkbox">{item}
-                    <input type="checkbox" name="answer" value={item}
-                       checked={returnCurrentValue(this.props, this.isItemChecked(item))}
-                       onChange={this.handleChangeCheckbox}
+                    <input
+                        type="checkbox"
+                        name={this.props.id}
+                        value={item}
+                        checked={returnCurrentValue(this.props, this.isItemChecked(item))}
+                        onChange={this.handleChangeCheckbox}
                     />
                     <span className="check-mark-checkbox"></span>
                 </label>

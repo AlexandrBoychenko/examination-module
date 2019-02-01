@@ -24,11 +24,7 @@
   "jest": {
     "setupFilesAfterEnv": [
       "./testConfig.js"
-    ],
-    "transform": {
-      "^.+\\.js$": "babel-jest",
-      ".+\\.(css|style|less|sass|scss)$": "jest-transform-css"
-    }
+    ]
   },
   "eslintConfig": {
     "extends": "react-app"

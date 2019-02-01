@@ -24,7 +24,7 @@ describe('Radio', () => {
         const wrapper = mount(<Radio {...testRadioProps} />);
         const RadioProps = wrapper.find("input").first().props();
 
-        expect(RadioProps.type).toEqual('radio');
+        expect(RadioProps.type).toEqual('Radio');
         expect(RadioProps.name).toEqual(wrapper.props().id);
         expect(RadioProps.value).toEqual(expect.any(Number || String));
         expect(RadioProps.checked).toEqual(false);

@@ -20,7 +20,7 @@ export default [
             "Имеет хвост",
             "Вращается вокруг солнца",
         ],
-        type: "Checkbox",
+        type: "Checkbox"
     },
     {
         id: "question03",
