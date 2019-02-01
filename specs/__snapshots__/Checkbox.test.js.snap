@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Checkbox It should be render correctly 1`] = `
+<ul>
+  <li>
+    <label
+      className="container container-checkbox"
+    >
+      Имеет хвост
+      <input
+        checked=""
+        name="question02"
+        onChange={[Function]}
+        type="checkbox"
+        value="Имеет хвост"
+      />
+      <span
+        className="check-mark-checkbox"
+      />
+    </label>
+  </li>
+  <li>
+    <label
+      className="container container-checkbox"
+    >
+      Вращается вокруг солнца
+      <input
+        checked=""
+        name="question02"
+        onChange={[Function]}
+        type="checkbox"
+        value="Вращается вокруг солнца"
+      />
+      <span
+        className="check-mark-checkbox"
+      />
+    </label>
+  </li>
+  <li>
+    <label
+      className="container container-checkbox"
+    >
+      Состоит из газа и пыли
+      <input
+        checked=""
+        name="question02"
+        onChange={[Function]}
+        type="checkbox"
+        value="Состоит из газа и пыли"
+      />
+      <span
+        className="check-mark-checkbox"
+      />
+    </label>
+  </li>
+  <li>
+    <label
+      className="container container-checkbox"
+    >
+      Существует только во внутренней области солнечной системы
+      <input
+        checked=""
+        name="question02"
+        onChange={[Function]}
+        type="checkbox"
+        value="Существует только во внутренней области солнечной системы"
+      />
+      <span
+        className="check-mark-checkbox"
+      />
+    </label>
+  </li>
+  <li>
+    <label
+      className="container container-checkbox"
+    >
+      Не имеет ядра
+      <input
+        checked=""
+        name="question02"
+        onChange={[Function]}
+        type="checkbox"
+        value="Не имеет ядра"
+      />
+      <span
+        className="check-mark-checkbox"
+      />
+    </label>
+  </li>
+</ul>
+`;
