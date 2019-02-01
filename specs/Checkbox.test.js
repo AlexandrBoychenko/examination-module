@@ -23,6 +23,14 @@ describe('Checkbox', () => {
         parentState: {}
     };
 
+    const onChange = jest.fn(),
+        props = {
+            ...testCheckboxProps,
+            onChange
+        };
+    const wrapper = mount(<Checkbox {...props} />);
+    const CheckboxInputComponent = wrapper.find("input").first();
+
     test('It should be render correctly', () => {
         const component = renderer.create(<Checkbox {...testCheckboxProps} />);
         let treeHTML = component.toJSON();
@@ -41,14 +49,14 @@ describe('Checkbox', () => {
     });
 
     test("check the onChange callback", () => {
-        const onChange = jest.fn(),
-            props = {
-                ...testCheckboxProps,
-                onChange
-            };
-        const wrapper = mount(<Checkbox {...props} />);
-        const CheckboxInputComponent = wrapper.find("input").first();
         CheckboxInputComponent.simulate("change", {target: {"value": props.items[0]}});
         expect(wrapper.state().checked).toEqual([CheckboxInputComponent.props().value]);
+    });
+
+    test("check the state after dual onChange callback", () => {
+        CheckboxInputComponent.simulate("change", {target: {"value": props.items[0]}});
+        CheckboxInputComponent.simulate("change", {target: {"value": props.items[3]}});
+        CheckboxInputComponent.simulate("change", {target: {"value": ""}});
+        expect(wrapper.state().checked[0]).toEqual(props.items[3]);
     });
 });
